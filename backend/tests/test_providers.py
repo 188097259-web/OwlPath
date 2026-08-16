@@ -1427,6 +1427,36 @@ def test_external_provider_requires_https_and_global_destination() -> None:
     )
 
 
+def test_external_dns_egress_proxy_cidrs_allow_only_resolved_fake_ips(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Explicitly acknowledged sandbox fake-IP ranges relax DNS validation only.
+
+    Some research sandboxes answer every external DNS query with a fake-IP
+    proxy address such as 198.18.1.157. The operator can acknowledge those
+    CIDRs through OWLPATH_ALLOW_EGRESS_PROXY_CIDRS; literal provider URLs
+    inside the same range must remain rejected.
+    """
+
+    monkeypatch.setenv("OWLPATH_ALLOW_EGRESS_PROXY_CIDRS", "198.18.0.0/15")
+    monkeypatch.setattr(
+        socket,
+        "getaddrinfo",
+        lambda *_args, **_kwargs: [
+            (socket.AF_INET, socket.SOCK_STREAM, 6, "", ("198.18.1.157", 443))
+        ],
+    )
+
+    validate_outbound_url(
+        "https://provider.example/v1", DataBoundary.EXTERNAL, resolve_dns=True,
+    )
+    with pytest.raises(ProviderInvocationError) as literal:
+        validate_outbound_url(
+            "https://198.18.1.157/v1", DataBoundary.EXTERNAL, resolve_dns=False,
+        )
+    assert literal.value.code == "unsafe_provider_url"
+
+
 def test_provider_dns_validation_does_not_block_the_asyncio_event_loop(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

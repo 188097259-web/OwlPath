@@ -1,9 +1,10 @@
 import asyncio
 import ipaddress
+import os
 import socket
 import threading
 import weakref
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 
 from .errors import ProviderInvocationError
@@ -60,6 +61,38 @@ def _metadata_or_special_ip(address: str) -> bool:
         or ip.is_reserved
         or ip.is_unspecified
     )
+
+
+def _configured_egress_proxy_networks() -> List[Any]:
+    """Parse OWLPATH_ALLOW_EGRESS_PROXY_CIDRS.
+
+    Some local research sandboxes answer external DNS queries with fake-IP
+    proxy addresses (commonly 198.18.0.0/15) and route the subsequent TLS
+    connection by SNI. Those addresses are non-global, so the default
+    fail-closed policy rejects them. The operator can explicitly acknowledge
+    the sandbox egress CIDRs with this environment variable. The allowance is
+    applied only to addresses obtained by resolving a provider hostname;
+    literal provider URLs targeting those addresses remain rejected.
+    """
+
+    networks: List[Any] = []
+    for token in os.environ.get("OWLPATH_ALLOW_EGRESS_PROXY_CIDRS", "").split(","):
+        token = token.strip()
+        if not token:
+            continue
+        try:
+            networks.append(ipaddress.ip_network(token, strict=False))
+        except ValueError:
+            continue
+    return networks
+
+
+def _in_configured_egress_proxy(address: str, networks: List[Any]) -> bool:
+    try:
+        ip = ipaddress.ip_address(address.split("%", 1)[0])
+    except ValueError:
+        return False
+    return any(ip in network for network in networks)
 
 
 def validate_outbound_url(url: str, boundary: DataBoundary, resolve_dns: bool = True) -> None:
@@ -159,7 +192,12 @@ def validate_outbound_url(url: str, boundary: DataBoundary, resolve_dns: bool = 
             retryable=True,
             safe_details=_dns_error_details(transient=True, timed_out=True),
         ) from exc
-    if not addresses or any(_blocked_ip(address) for address in addresses):
+    proxy_networks = _configured_egress_proxy_networks()
+    if not addresses or any(
+        _blocked_ip(address)
+        and not _in_configured_egress_proxy(address, proxy_networks)
+        for address in addresses
+    ):
         raise ProviderInvocationError("unsafe_provider_url", "External provider hostname resolves to a private or metadata address")
 
 
