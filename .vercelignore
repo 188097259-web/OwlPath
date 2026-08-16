@@ -1,0 +1,17 @@
+.git
+.vercel
+.vercel-global
+.vercel-home
+.vercel-cli
+.venv
+.npm-cache
+frontend/node_modules
+frontend/dist
+data/owlpath.db
+data/owlpath.db.master_key
+data/*.db
+data/*.db-*
+data/*.master_key
+.env.local
+.env.*
+!.env.example

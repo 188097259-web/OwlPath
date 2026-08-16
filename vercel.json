@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm --prefix frontend run build",
+  "installCommand": "npm --prefix frontend ci --no-audit --no-fund && python -m pip install -r backend/requirements.txt",
+  "functions": {
+    "main.py": {
+      "maxDuration": 300,
+      "excludeFiles": "{.venv/**,.vercel/**,.npm-cache/**,.vercel-cli/**,frontend/node_modules/**,frontend/src/**,frontend/public/**,data/*.db*,data/*.master_key,backend/tests/**,docs/**,examples/**,benchmarks/**,assets/**,releases/**,scripts/**}"
+    }
+  }
+}

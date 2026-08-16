@@ -56,3 +56,6 @@ dist/
 build/
 tmp/
 *.tsbuildinfo
+
+# Vercel local link metadata
+.vercel/
