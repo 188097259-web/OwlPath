@@ -1,0 +1,8 @@
+fastapi==0.141.1
+starlette==1.6.0
+uvicorn[standard]==0.52.3
+pydantic==2.13.4
+httpx==0.28.1
+cryptography==50.0.0
+click==8.4.2
+python-dotenv==1.2.2

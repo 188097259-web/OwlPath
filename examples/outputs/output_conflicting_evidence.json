@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0-research",
+  "run_id": "RUN-SYN-CONFLICT-001",
+  "case_id": "SYN-CASE-CONFLICT-001",
+  "snapshot_id": "SYN-SNAPSHOT-CONFLICT-001",
+  "decision_time": "2026-03-08T13:00:00+08:00",
+  "snapshot_stage": "imaging_available",
+  "run_context": "synthetic_acceptance_test",
+  "generated_at": "2026-08-06T10:02:00+08:00",
+  "research_use_only": true,
+  "not_a_medical_device": true,
+  "main_state": "more_information_needed",
+  "scope": {
+    "status": "partial",
+    "reasons": ["infection_and_non_infection_evidence_conflict"],
+    "contract_version": "1.0.0-research"
+  },
+  "time_gate": {
+    "rule_version": "1.0.0-research",
+    "included_event_ids": ["CON-E01", "CON-E02", "CON-E03", "CON-E04"],
+    "excluded_events": [
+      {"event_id": "CON-E05", "reason": "visible_after_decision_time"}
+    ],
+    "future_information_leakage_detected": false
+  },
+  "data_quality": {
+    "grade": "moderate",
+    "completeness_score": 0.71,
+    "conflicts": [
+      {
+        "field": "infection_versus_cardiogenic_pulmonary_edema",
+        "event_ids": ["CON-E01", "CON-E02", "CON-E03", "CON-E04"],
+        "severity": "high",
+        "resolved": false
+      }
+    ],
+    "missing_critical_information": ["影像征象需复核以区分感染与肺水肿"]
+  },
+  "infection_assessment": {
+    "evaluated": true,
+    "infection_probability": 0.58,
+    "non_infection_probability": 0.42,
+    "syndrome": "indeterminate"
+  },
+  "pathogen_assessment": {
+    "evaluated": true,
+    "probability_condition": "conditional_on_infection",
+    "category_probabilities": {
+      "bacterial": 0.42,
+      "viral": 0.38,
+      "fungal": 0.03,
+      "parasitic": 0.01,
+      "other_known": 0.01
+    },
+    "unknown_probability": 0.15,
+    "coinfection_probability": 0.09,
+    "top_k": [],
+    "prediction_set": [],
+    "permitted_resolution": "none_pending_more_information"
+  },
+  "safety": {
+    "calibration_status": "valid_for_declared_research_scope",
+    "ood_status": "borderline",
+    "ood_score": 0.45,
+    "model_disagreement": "high",
+    "abstained": false,
+    "reason_codes": ["unresolved_clinical_conflict", "prediction_withheld_pending_information"]
+  },
+  "next_information": {
+    "kind": "imaging",
+    "item_id": "IMG-RADIOLOGY-REVIEW",
+    "display_name": "对现有胸部影像进行结构化复核",
+    "rationale": "复核现有影像中的分布、心影和胸腔积液等征象，可能帮助区分感染与肺水肿；这只是信息价值建议，不是医嘱。",
+    "expected_information_gain": 0.44,
+    "availability": "available",
+    "not_an_order": true
+  },
+  "evidence_summary": {
+    "supporting": [
+      {
+        "fact_id": "FACT-CON-01",
+        "event_ids": ["CON-E02", "CON-E03"],
+        "target": "infection_possible",
+        "quality": "moderate",
+        "statement": "客观发热和炎症指标升高使感染仍有可能。"
+      }
+    ],
+    "contradicting": [
+      {
+        "fact_id": "FACT-CON-02",
+        "event_ids": ["CON-E01", "CON-E04"],
+        "target": "infection_as_primary_explanation",
+        "quality": "high",
+        "statement": "端坐呼吸、近期体重增加和双侧胸腔积液同时支持心源性肺水肿。"
+      }
+    ]
+  },
+  "versions": {
+    "intended_use": "1.0.0-research",
+    "time_gate": "1.0.0-research",
+    "infection_model": "synthetic-infection-model-0.1.0",
+    "pathogen_model": "synthetic-pathogen-model-0.1.0",
+    "calibrator": "synthetic-calibrator-0.1.0",
+    "ood_detector": "synthetic-ood-detector-0.1.0",
+    "local_prior": "2026-W31-synthetic-v1",
+    "next_information_rules": "1.0.0-research-example",
+    "knowledge_base": "synthetic-kb-0.1.0",
+    "report_prompt": "synthetic-report-prompt-0.1.0"
+  },
+  "audit": {
+    "structured_result_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+    "tool_call_count": 3,
+    "human_review_required": true
+  },
+  "human_readable_summary": "该纯虚构快照同时存在感染和非感染证据，系统暂不报告病原体候选，主结论是需要更多信息；不得据此直接诊疗。",
+  "disclaimer": "本结果仅用于竞赛展示和方法学研究，尚未完成临床有效性验证，不是医疗器械，不可作为真实患者的独立诊断、检查医嘱或治疗依据。"
+}

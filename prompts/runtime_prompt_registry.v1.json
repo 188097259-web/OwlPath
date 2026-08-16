@@ -1,0 +1,114 @@
+{
+  "schema_version": "owlpath.prompt-registry.v1",
+  "release": "v0.1.0",
+  "scope": "public_runtime_source_index",
+  "source_of_truth_policy": "runtime_code_symbols_are_authoritative;this_file_is_a_verified_audit_index",
+  "runtime_versions": {
+    "specialist_config": "owlpath.development-agents.v3",
+    "specialist_node": "owlpath.development-specialist.v3",
+    "specialist_output": "owlpath.specialist.v2",
+    "synthesis_node": "owlpath.development-synthesis.v2",
+    "synthesis_output": "owlpath.synthesis-draft.v1",
+    "critic_node": "owlpath.development-critic.v2",
+    "critic_output": "owlpath.critic.v1",
+    "result": "owlpath.result.v3",
+    "execution_graph": "owlpath.execution-graph.v4",
+    "trace": "owlpath.trace.v2"
+  },
+  "authoritative_sources": [
+    {
+      "path": "backend/app/providers.py",
+      "sha256": "4248c0065edd1784c3f772d38cadb55d24e59326fec8f182a3fb36f9b87465b3",
+      "symbols": [
+        "DEVELOPMENT_SPECIALIST_INSTRUCTION",
+        "DEVELOPMENT_SYNTHESIS_INSTRUCTION",
+        "DEVELOPMENT_CRITIC_INSTRUCTION",
+        "_SPECIALIST_ROLE_FOCUS",
+        "_development_primary_prompt",
+        "_development_specialist_contract",
+        "_development_synthesis_contract",
+        "_development_critic_contract",
+        "ProviderClient.invoke_development_specialist",
+        "ProviderClient.invoke_development_synthesis",
+        "ProviderClient.invoke_development_critic",
+        "ProviderClient._invoke_structured"
+      ],
+      "purpose": "runtime task instructions, role focus, compact output contracts and provider message assembly"
+    },
+    {
+      "path": "backend/app/engine.py",
+      "sha256": "f6cefdc695a38ec6d2039c9bba57a324e79813f1a607155119cb889a92b9bc12",
+      "symbols": [
+        "DEVELOPMENT_CORE_SPECIALIST_ROLES",
+        "DEVELOPMENT_DYNAMIC_SPECIALIST_ROLES",
+        "DEVELOPMENT_MAX_DYNAMIC_SPECIALISTS",
+        "select_dynamic_development_roles",
+        "build_development_execution_manifest"
+      ],
+      "purpose": "role registry, deterministic routing and run-frozen prompt/agent assignment"
+    },
+    {
+      "path": "backend/app/models.py",
+      "sha256": "a889078a0dc88ecaec7759140a11f8c6e9f1254f889aeec86c85745d2b6e456a",
+      "symbols": [
+        "DevelopmentSpecialistRole",
+        "DevelopmentSpecialistRequest",
+        "DevelopmentSpecialistResult",
+        "DevelopmentSynthesisRequest",
+        "DevelopmentSynthesisDraft",
+        "DevelopmentCriticRequest",
+        "DevelopmentCriticResult",
+        "DevelopmentResultV3",
+        "validate_development_top5"
+      ],
+      "purpose": "input/output types and deterministic semantic validation"
+    }
+  ],
+  "documentation_companion": {
+    "path": "docs/12_elite_clinical_specialist_prompt_library.md",
+    "sha256": "9cf284bd2ff28e603ab0376849e86c548b6e977f7d134f73467bab771ae5aa32",
+    "runtime_authoritative": false,
+    "purpose": "clinician-readable bilingual explanation"
+  },
+  "roles": {
+    "core_always_selected": [
+      {"id": "infectious_diseases", "zh_cn": "感染科核心 Agent", "en": "Infectious Diseases Core Agent"},
+      {"id": "critical_care_emergency", "zh_cn": "急诊与重症核心 Agent", "en": "Emergency and Critical Care Core Agent"},
+      {"id": "clinical_epidemiology", "zh_cn": "临床流行病学核心 Agent", "en": "Clinical Epidemiology Core Agent"},
+      {"id": "laboratory_medicine", "zh_cn": "检验医学核心 Agent", "en": "Laboratory Medicine Core Agent"},
+      {"id": "clinical_microbiology_culture", "zh_cn": "细菌培养与临床微生物核心 Agent", "en": "Culture and Clinical Microbiology Core Agent"}
+    ],
+    "dynamic_maximum_selected": 6,
+    "dynamic_registry": [
+      {"id": "radiology", "zh_cn": "影像诊断专科 Agent", "en": "Radiology Specialist Agent"},
+      {"id": "pulmonology", "zh_cn": "呼吸专科 Agent", "en": "Pulmonology Specialist Agent"},
+      {"id": "gastroenterology", "zh_cn": "消化专科 Agent", "en": "Gastroenterology Specialist Agent"},
+      {"id": "hepatobiliary_pancreatic", "zh_cn": "肝胆胰专科 Agent", "en": "Hepatobiliary and Pancreatic Specialist Agent"},
+      {"id": "urology", "zh_cn": "泌尿外科专科 Agent", "en": "Urology Specialist Agent"},
+      {"id": "nephrology", "zh_cn": "肾脏专科 Agent", "en": "Nephrology Specialist Agent"},
+      {"id": "neurology_neuroinfection", "zh_cn": "神经与神经感染专科 Agent", "en": "Neurology and Neuroinfection Specialist Agent"},
+      {"id": "cardiology_endocarditis", "zh_cn": "心血管与心内膜炎专科 Agent", "en": "Cardiology and Endocarditis Specialist Agent"},
+      {"id": "hematology_immunology", "zh_cn": "血液与免疫专科 Agent", "en": "Hematology and Immunology Specialist Agent"},
+      {"id": "transplant_infectious_diseases", "zh_cn": "移植感染专科 Agent", "en": "Transplant Infectious Diseases Specialist Agent"},
+      {"id": "surgery_source_control", "zh_cn": "外科感染源控制专科 Agent", "en": "Surgical Source-Control Specialist Agent"},
+      {"id": "orthopedics_bone_joint", "zh_cn": "骨与关节感染专科 Agent", "en": "Orthopedics and Bone-Joint Infection Specialist Agent"},
+      {"id": "dermatology_soft_tissue", "zh_cn": "皮肤与软组织感染专科 Agent", "en": "Dermatology and Soft-Tissue Infection Specialist Agent"},
+      {"id": "obstetrics_gynecology", "zh_cn": "妇产科感染专科 Agent", "en": "Obstetrics and Gynecology Specialist Agent"},
+      {"id": "pediatrics_neonatology", "zh_cn": "儿科与新生儿感染专科 Agent", "en": "Pediatrics and Neonatology Specialist Agent"},
+      {"id": "tropical_medicine_parasitology", "zh_cn": "热带医学与寄生虫专科 Agent", "en": "Tropical Medicine and Parasitology Specialist Agent"},
+      {"id": "medical_mycology", "zh_cn": "医学真菌学专科 Agent", "en": "Medical Mycology Specialist Agent"},
+      {"id": "clinical_virology_molecular", "zh_cn": "临床病毒与分子诊断专科 Agent", "en": "Clinical Virology and Molecular Diagnostics Specialist Agent"},
+      {"id": "antimicrobial_stewardship", "zh_cn": "抗微生物药物管理专科 Agent", "en": "Antimicrobial Stewardship Specialist Agent"},
+      {"id": "healthcare_device_infection", "zh_cn": "医疗相关与器械感染专科 Agent", "en": "Healthcare and Device Infection Specialist Agent"}
+    ]
+  },
+  "public_boundary": {
+    "publishes_runtime_task_instructions": true,
+    "publishes_role_registry_and_contract_sources": true,
+    "publishes_provider_private_system_prompts": false,
+    "publishes_hidden_chain_of_thought": false,
+    "persists_hidden_chain_of_thought": false,
+    "publishes_api_keys_or_private_endpoints": false,
+    "publishes_patient_data": false
+  }
+}

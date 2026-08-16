@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0-research",
+  "run_id": "RUN-SYN-OOD-001",
+  "case_id": "SYN-CASE-OOD-001",
+  "snapshot_id": "SYN-SNAPSHOT-OOD-001",
+  "decision_time": "2026-04-12T09:30:00+08:00",
+  "snapshot_stage": "routine_labs_available",
+  "run_context": "synthetic_acceptance_test",
+  "generated_at": "2026-08-06T10:03:00+08:00",
+  "research_use_only": true,
+  "not_a_medical_device": true,
+  "main_state": "abstain",
+  "scope": {
+    "status": "out_of_scope",
+    "reasons": ["recent_stem_cell_transplant", "current_intensive_immunosuppression", "profound_neutropenia"],
+    "contract_version": "1.0.0-research"
+  },
+  "time_gate": {
+    "rule_version": "1.0.0-research",
+    "included_event_ids": ["OOD-E01", "OOD-E02", "OOD-E03"],
+    "excluded_events": [],
+    "future_information_leakage_detected": false
+  },
+  "data_quality": {
+    "grade": "high",
+    "completeness_score": 0.83,
+    "conflicts": [],
+    "missing_critical_information": []
+  },
+  "infection_assessment": {
+    "evaluated": false,
+    "infection_probability": null,
+    "non_infection_probability": null,
+    "syndrome": "not_evaluated_out_of_scope"
+  },
+  "pathogen_assessment": {
+    "evaluated": false,
+    "probability_condition": "not_evaluated",
+    "category_probabilities": {},
+    "unknown_probability": null,
+    "coinfection_probability": null,
+    "top_k": [],
+    "prediction_set": [],
+    "permitted_resolution": "none_abstained"
+  },
+  "safety": {
+    "calibration_status": "not_applicable",
+    "ood_status": "out_of_distribution",
+    "ood_score": 0.97,
+    "model_disagreement": "not_evaluated",
+    "abstained": true,
+    "reason_codes": ["hard_scope_exclusion_severe_immunosuppression"]
+  },
+  "next_information": null,
+  "evidence_summary": {
+    "supporting": [
+      {
+        "fact_id": "FACT-OOD-01",
+        "event_ids": ["OOD-E01", "OOD-E03"],
+        "target": "out_of_scope",
+        "quality": "high",
+        "statement": "近期造血干细胞移植、强化免疫抑制和重度中性粒细胞减少触发 v1 硬性排除条件。"
+      }
+    ],
+    "contradicting": []
+  },
+  "versions": {
+    "intended_use": "1.0.0-research",
+    "time_gate": "1.0.0-research",
+    "infection_model": "synthetic-infection-model-0.1.0",
+    "pathogen_model": "synthetic-pathogen-model-0.1.0",
+    "calibrator": "synthetic-calibrator-0.1.0",
+    "ood_detector": "synthetic-ood-detector-0.1.0",
+    "local_prior": "2026-W31-synthetic-v1",
+    "next_information_rules": "1.0.0-research-example",
+    "knowledge_base": "synthetic-kb-0.1.0",
+    "report_prompt": "synthetic-report-prompt-0.1.0"
+  },
+  "audit": {
+    "structured_result_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+    "tool_call_count": 1,
+    "human_review_required": true
+  },
+  "human_readable_summary": "该纯虚构病例超出 v1 研究适用范围，系统已弃答，不生成感染概率或病原体排序；真实患者必须由临床团队独立评估。",
+  "disclaimer": "本结果仅用于竞赛展示和方法学研究，尚未完成临床有效性验证，不是医疗器械，不可作为真实患者的独立诊断、检查医嘱或治疗依据。"
+}

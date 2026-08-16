@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0-research",
+  "run_id": "RUN-SYN-CATEGORY-001",
+  "case_id": "SYN-CASE-CATEGORY-001",
+  "snapshot_id": "SYN-SNAPSHOT-CATEGORY-001",
+  "decision_time": "2026-02-03T11:10:00+08:00",
+  "snapshot_stage": "routine_labs_available",
+  "run_context": "synthetic_acceptance_test",
+  "generated_at": "2026-08-06T10:01:00+08:00",
+  "research_use_only": true,
+  "not_a_medical_device": true,
+  "main_state": "category_only",
+  "scope": {
+    "status": "eligible",
+    "reasons": ["within_declared_v1_scope"],
+    "contract_version": "1.0.0-research"
+  },
+  "time_gate": {
+    "rule_version": "1.0.0-research",
+    "included_event_ids": ["CAT-E01", "CAT-E02", "CAT-E03", "CAT-E04"],
+    "excluded_events": [
+      {"event_id": "CAT-E05", "reason": "visible_after_decision_time"}
+    ],
+    "future_information_leakage_detected": false
+  },
+  "data_quality": {
+    "grade": "moderate",
+    "completeness_score": 0.74,
+    "conflicts": [],
+    "missing_critical_information": ["影像在当前决策时点尚不可见", "暴露史未询问"]
+  },
+  "infection_assessment": {
+    "evaluated": true,
+    "infection_probability": 0.91,
+    "non_infection_probability": 0.09,
+    "syndrome": "suspected_acute_lrti"
+  },
+  "pathogen_assessment": {
+    "evaluated": true,
+    "probability_condition": "conditional_on_infection",
+    "category_probabilities": {
+      "bacterial": 0.69,
+      "viral": 0.20,
+      "fungal": 0.03,
+      "parasitic": 0.01,
+      "other_known": 0.01
+    },
+    "unknown_probability": 0.06,
+    "coinfection_probability": 0.10,
+    "top_k": [
+      {
+        "rank": 1,
+        "pathogen_id": "CATEGORY:BACTERIAL",
+        "display_name": "细菌性病原体大类",
+        "taxonomic_level": "category",
+        "probability": 0.69,
+        "supporting_fact_ids": ["FACT-CAT-01"],
+        "contradicting_fact_ids": ["FACT-CAT-02"]
+      }
+    ],
+    "prediction_set": ["CATEGORY:BACTERIAL"],
+    "permitted_resolution": "category"
+  },
+  "safety": {
+    "calibration_status": "valid_for_declared_research_scope",
+    "ood_status": "in_distribution",
+    "ood_score": 0.15,
+    "model_disagreement": "moderate",
+    "abstained": false,
+    "reason_codes": ["species_resolution_not_supported"]
+  },
+  "next_information": {
+    "kind": "history_question",
+    "item_id": "HIST-EXPOSURE-CLARIFICATION",
+    "display_name": "补充结构化暴露史",
+    "rationale": "暴露史尚未询问，补充后可能改变病原大类内部排序；这只是信息收集建议，不是医嘱。",
+    "expected_information_gain": 0.27,
+    "availability": "available",
+    "not_an_order": true
+  },
+  "evidence_summary": {
+    "supporting": [
+      {
+        "fact_id": "FACT-CAT-01",
+        "event_ids": ["CAT-E01", "CAT-E03", "CAT-E04"],
+        "target": "bacterial_category",
+        "quality": "high",
+        "statement": "发热、脓痰倾向症状、中性粒细胞增多和较高炎症指标支持细菌大类。"
+      }
+    ],
+    "contradicting": [
+      {
+        "fact_id": "FACT-CAT-02",
+        "event_ids": ["CAT-E02"],
+        "target": "species_level_certainty",
+        "quality": "moderate",
+        "statement": "缺少暴露史且影像尚未返回，当前证据不足以稳定区分具体物种。"
+      }
+    ]
+  },
+  "versions": {
+    "intended_use": "1.0.0-research",
+    "time_gate": "1.0.0-research",
+    "infection_model": "synthetic-infection-model-0.1.0",
+    "pathogen_model": "synthetic-pathogen-model-0.1.0",
+    "calibrator": "synthetic-calibrator-0.1.0",
+    "ood_detector": "synthetic-ood-detector-0.1.0",
+    "local_prior": "2026-W31-synthetic-v1",
+    "next_information_rules": "1.0.0-research-example",
+    "knowledge_base": "synthetic-kb-0.1.0",
+    "report_prompt": "synthetic-report-prompt-0.1.0"
+  },
+  "audit": {
+    "structured_result_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "tool_call_count": 3,
+    "human_review_required": true
+  },
+  "human_readable_summary": "在该纯虚构快照中，证据只支持报告细菌性病原体大类，尚不支持具体物种；不得据此直接诊断、开检查或治疗。",
+  "disclaimer": "本结果仅用于竞赛展示和方法学研究，尚未完成临床有效性验证，不是医疗器械，不可作为真实患者的独立诊断、检查医嘱或治疗依据。"
+}

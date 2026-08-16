@@ -1,0 +1,109 @@
+{
+  "contract_id": "owlpath-intended-use-adult-community-lrti",
+  "version": "1.0.0-research",
+  "status": "runnable_research_product_not_clinically_validated",
+  "language": "zh-CN",
+  "research_use_only": true,
+  "not_a_medical_device": true,
+  "direct_treatment_guidance_prohibited": true,
+  "statement": "面向成人社区起病疑似急性下呼吸道感染的可运行研究版产品；每次运行在当前决策时点t冻结已可见证据，不得直接指导诊断或治疗。",
+  "population": {
+    "minimum_age_years": 18,
+    "onset_context": [
+      "community_onset"
+    ],
+    "target_syndromes": [
+      "suspected_acute_lower_respiratory_tract_infection"
+    ],
+    "typical_symptom_duration_days_max": 14,
+    "care_settings": [
+      "emergency_department",
+      "early_inpatient_assessment",
+      "approved_retrospective_research"
+    ]
+  },
+  "decision_time_policy": {
+    "mode": "dynamic_current_decision_time",
+    "field": "decision_time",
+    "rule": "实时运行只接受带明确时区且接近服务器当前时间的decision_time，只使用截至该时点已对医生可见的事件。",
+    "live_server_time_window": "server_now_minus_15_minutes_to_plus_1_minute",
+    "naive_datetime_rejected": true,
+    "retrospective_api_default": "disabled_requires_explicit_server_enable_admin_token_and_preregistered_anchor",
+    "repeatable_with_new_information": true,
+    "prior_snapshots_immutable": true,
+    "eligible_event_rule": "clinician_visible_at <= decision_time",
+    "retrospective_anchor_examples": [
+      "t_initial",
+      "t_labs",
+      "t_imaging",
+      "t_pre_microbiology",
+      "t_6h_optional_protocol_example"
+    ],
+    "fixed_six_hour_anchor_is_mandatory": false
+  },
+  "allowed_input_domains": [
+    "demographics",
+    "symptoms_and_course",
+    "exposure_and_travel_history",
+    "comorbidities_and_immune_status",
+    "known_pre_decision_time_antimicrobial_exposure",
+    "vital_signs",
+    "routine_blood_tests_visible_at_decision_time",
+    "signed_imaging_report_visible_at_decision_time",
+    "versioned_aggregate_local_prior"
+  ],
+  "prohibited_input_domains_for_primary_early_prediction": [
+    "events_visible_after_decision_time",
+    "discharge_diagnosis",
+    "final_expert_causal_label",
+    "future_treatment_response",
+    "future_imaging",
+    "model_predictions_reused_as_ground_truth_local_prior"
+  ],
+  "microbiology_handling": {
+    "pre_result_primary_task": "early_pathogen_prediction",
+    "if_result_visible_at_decision_time": "mark_run_as_post_microbiology_update_and_exclude_from_primary_early_prediction_metrics",
+    "final_causal_label_must_never_be_input": true
+  },
+  "hard_out_of_scope": [
+    "age_under_18",
+    "pregnancy_or_special_postpartum_context",
+    "solid_organ_or_hematopoietic_stem_cell_transplant",
+    "severe_neutropenia_or_intensive_chemotherapy",
+    "other_severe_immunosuppression_not_validated_in_v1",
+    "hospital_acquired_or_ventilator_associated_pneumonia",
+    "suspected_emerging_high_consequence_pathogen",
+    "unverifiable_decision_time_or_event_visibility",
+    "immediate_resuscitation_or_procedure_that_must_not_wait_for_system"
+  ],
+  "permitted_primary_states": [
+    "infection_unlikely",
+    "species_set",
+    "category_only",
+    "more_information_needed",
+    "abstain"
+  ],
+  "permitted_outputs": [
+    "scope_and_data_quality",
+    "infection_probability",
+    "suspected_syndrome",
+    "conditional_pathogen_category_probabilities",
+    "prediction_set_when_permitted",
+    "coinfection_probability",
+    "unknown_probability",
+    "supporting_and_contradicting_evidence",
+    "research_only_next_information_or_test_suggestion",
+    "abstention_or_downgrade_reason"
+  ],
+  "prohibited_outputs": [
+    "drug_selection",
+    "dose",
+    "route",
+    "duration",
+    "combination_or_deescalation",
+    "automated_order",
+    "automatic_isolation_decision",
+    "definitive_diagnosis_language"
+  ],
+  "mandatory_disclaimer": "本结果仅用于竞赛展示和方法学研究，尚未完成临床有效性验证，不是医疗器械，不可作为真实患者的独立诊断、检查医嘱或治疗依据。"
+}

@@ -1,0 +1,45 @@
+{
+  "case_id": "SYN-CASE-OOD-001",
+  "title": "重度免疫抑制且超出 v1 适用范围的虚构病例",
+  "is_synthetic": true,
+  "contains_real_patient_data": false,
+  "prohibited_real_world_use": true,
+  "expected_main_state": "abstain",
+  "decision_time": "2026-04-12T09:30:00+08:00",
+  "snapshot_stage": "routine_labs_available",
+  "run_context": "synthetic_acceptance_test",
+  "demographics": {"age_years": 38, "sex": "male", "pregnant": false},
+  "context": {"care_setting": "emergency_department", "onset": "community_onset", "symptom_duration_days": 5},
+  "events": [
+    {
+      "event_id": "OOD-E01",
+      "event_type": "history_fact",
+      "clinician_visible_at": "2026-04-12T08:15:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"hematopoietic_stem_cell_transplant_days_ago": 70, "current_intensive_immunosuppression": "present"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "OOD-E02",
+      "event_type": "symptom",
+      "clinician_visible_at": "2026-04-12T08:20:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"fever": "present", "dry_cough": "present", "dyspnea": "present"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "OOD-E03",
+      "event_type": "laboratory_result",
+      "clinician_visible_at": "2026-04-12T09:10:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"wbc_10e9_l": 0.8, "absolute_neutrophils_10e9_l": 0.2, "crp_mg_l": 74},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "case_id": "SYN-CASE-CONFLICT-001",
+  "title": "病史、生命体征和影像证据冲突的虚构病例",
+  "is_synthetic": true,
+  "contains_real_patient_data": false,
+  "prohibited_real_world_use": true,
+  "expected_main_state": "more_information_needed",
+  "decision_time": "2026-03-08T13:00:00+08:00",
+  "snapshot_stage": "imaging_available",
+  "run_context": "synthetic_acceptance_test",
+  "demographics": {"age_years": 71, "sex": "female", "pregnant": false},
+  "context": {"care_setting": "emergency_department", "onset": "community_onset", "symptom_duration_days": 3},
+  "events": [
+    {
+      "event_id": "CON-E01",
+      "event_type": "history_fact",
+      "clinician_visible_at": "2026-03-08T10:00:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"patient_reports_fever": "explicitly_absent", "orthopnea": "present", "recent_weight_gain": "present"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CON-E02",
+      "event_type": "vital_sign",
+      "clinician_visible_at": "2026-03-08T10:10:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"temperature_c": 38.3, "respiratory_rate_bpm": 25, "spo2_percent_room_air": 91},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CON-E03",
+      "event_type": "laboratory_result",
+      "clinician_visible_at": "2026-03-08T11:00:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"wbc_10e9_l": 8.4, "crp_mg_l": 38, "pct_ng_ml": 0.09},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CON-E04",
+      "event_type": "imaging_report",
+      "clinician_visible_at": "2026-03-08T12:20:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"report": "双肺斑片状密度增高并少量双侧胸腔积液，感染或肺水肿待鉴别。"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CON-E05",
+      "event_type": "history_fact",
+      "clinician_visible_at": "2026-03-08T13:40:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"household_fever_cluster": "present"},
+      "eligible_at_decision_time": false,
+      "exclusion_reason": "visible_after_decision_time"
+    }
+  ]
+}

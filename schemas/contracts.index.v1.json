@@ -1,0 +1,87 @@
+{
+  "schema_version": "owlpath.public-contract-index.v1",
+  "release": "v0.1.0",
+  "contracts": [
+    {
+      "contract_version": "owlpath.result.v3",
+      "kind": "result",
+      "machine_readable_schema": "schemas/owlpath.result.v3.schema.json",
+      "runtime_source": {
+        "path": "backend/app/models.py",
+        "sha256": "a889078a0dc88ecaec7759140a11f8c6e9f1254f889aeec86c85745d2b6e456a",
+        "symbol": "DevelopmentResultV3"
+      },
+      "semantic_validators": [
+        "backend/app/models.py::DevelopmentResultV3.completed_runs_require_exact_concrete_top5",
+        "backend/app/models.py::validate_development_top5"
+      ],
+      "generator": "schemas/export_public_schemas.py",
+      "verification": [
+        "python3 schemas/export_public_schemas.py --check",
+        "python3 schemas/verify_public_contracts.py"
+      ]
+    },
+    {
+      "contract_version": "owlpath.execution-graph.v4",
+      "kind": "execution_graph",
+      "machine_readable_schema": null,
+      "schema_status": "runtime_builder_is_authoritative_no_duplicate_standalone_schema",
+      "runtime_source": {
+        "path": "backend/app/engine.py",
+        "sha256": "f6cefdc695a38ec6d2039c9bba57a324e79813f1a607155119cb889a92b9bc12",
+        "version_symbol": "DEVELOPMENT_EXECUTION_GRAPH_VERSION",
+        "builder_symbol": "build_development_execution_manifest"
+      },
+      "runtime_validation": [
+        "backend/app/engine.py::sha256_json(execution_manifest)",
+        "backend/app/engine.py::execution_manifest_sha256 persistence",
+        "backend/app/engine.py::preflight execution_manifest content/hash/version comparison"
+      ],
+      "api_entry": "GET /api/runs/{run_id}/trace",
+      "verification": [
+        "python3 schemas/verify_public_contracts.py",
+        "backend/tests/test_development_v3.py",
+        "backend/tests/test_adaptive_architecture_v2.py"
+      ]
+    },
+    {
+      "contract_version": "owlpath.trace.v2",
+      "kind": "public_trace",
+      "machine_readable_schema": null,
+      "schema_status": "public_api_projection_is_authoritative_no_duplicate_standalone_schema",
+      "runtime_sources": [
+        {
+          "path": "backend/app/engine.py",
+          "sha256": "f6cefdc695a38ec6d2039c9bba57a324e79813f1a607155119cb889a92b9bc12",
+          "version_symbol": "DEVELOPMENT_TRACE_VERSION"
+        },
+        {
+          "path": "backend/app/api.py",
+          "sha256": "b46c0fb4dae17754ea4e3ef5f88cfa7aed4d63d2726be8757726f6a28af66eb9",
+          "symbols": [
+            "get_run_trace",
+            "get_run_trace_node",
+            "_trace_node_public",
+            "_trace_artifact_public",
+            "_trace_node_detail_payload"
+          ]
+        }
+      ],
+      "api_entries": [
+        "GET /api/runs/{run_id}/trace",
+        "GET /api/runs/{run_id}/trace/nodes/{node_id}"
+      ],
+      "runtime_validation": [
+        "execution_manifest_sha256 and manifest_integrity_ok",
+        "artifact content_sha256 and integrity_ok",
+        "trace_safe_payload public projection",
+        "raw provider response and credentials structurally excluded"
+      ],
+      "verification": [
+        "python3 schemas/verify_public_contracts.py",
+        "backend/tests/test_runtime_architecture_trace.py",
+        "backend/tests/test_development_v3.py"
+      ]
+    }
+  ]
+}

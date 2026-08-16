@@ -1,0 +1,105 @@
+{
+  "schema_version": "owlpath.clinical-terms.zh-en.v1",
+  "version": "1.2.0-research",
+  "languages": ["zh-CN", "en"],
+  "fallback_policy": "Keep the canonical or Latin name visible and mark the missing translation; never invent an unregistered pathogen translation.",
+  "taxonomy_rank_policy": {
+    "schema_version": "owlpath.registry-taxonomy-rank-policy.v1",
+    "accepted_product_ranks": ["species", "species_complex", "virus_type"],
+    "mapping_rules": {
+      "ncbi_species_to_product_species_v1": {
+        "product_rank": "species",
+        "accepted_ncbi_ranks": ["species", "subspecies"],
+        "required_lineage_anchor": null
+      },
+      "ncbi_species_group_to_product_species_complex_v1": {
+        "product_rank": "species_complex",
+        "accepted_ncbi_ranks": ["species group", "species subgroup"],
+        "required_lineage_anchor": null
+      },
+      "ncbi_unranked_virus_to_product_virus_type_v1": {
+        "product_rank": "virus_type",
+        "accepted_ncbi_ranks": ["no rank"],
+        "required_lineage_anchor": "NCBITaxon:10239"
+      }
+    }
+  },
+  "taxonomy_audit": {
+    "source": "NCBI Taxonomy Browser",
+    "verified_on": "2026-08-11",
+    "scope": "TaxID, current scientific name, NCBI rank, and Viruses lineage anchor for no-rank virus records"
+  },
+  "pathogens": [
+    {"canonical_id": "NCBITaxon:1313", "ncbi_scientific_name": "Streptococcus pneumoniae", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["streptococcus pneumoniae", "s. pneumoniae"], "zh_cn": "肺炎链球菌", "en": "Streptococcus pneumoniae"},
+    {"canonical_id": "NCBITaxon:446", "ncbi_scientific_name": "Legionella pneumophila", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["legionella pneumophila", "l. pneumophila"], "zh_cn": "嗜肺军团菌", "en": "Legionella pneumophila"},
+    {"canonical_id": "NCBITaxon:2104", "ncbi_scientific_name": "Mycoplasmoides pneumoniae", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["mycoplasmoides pneumoniae", "mycoplasma pneumoniae", "m. pneumoniae"], "zh_cn": "肺炎支原体", "en": "Mycoplasmoides pneumoniae"},
+    {"canonical_id": "NCBITaxon:573", "ncbi_scientific_name": "Klebsiella pneumoniae", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["klebsiella pneumoniae", "k. pneumoniae"], "zh_cn": "肺炎克雷伯菌", "en": "Klebsiella pneumoniae"},
+    {"canonical_id": "NCBITaxon:672", "ncbi_scientific_name": "Vibrio vulnificus", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["vibrio vulnificus", "v. vulnificus"], "zh_cn": "创伤弧菌", "en": "Vibrio vulnificus"},
+    {"canonical_id": "NCBITaxon:1307", "ncbi_scientific_name": "Streptococcus suis", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["streptococcus suis", "s. suis"], "zh_cn": "猪链球菌", "en": "Streptococcus suis"},
+    {"canonical_id": "NCBITaxon:644", "ncbi_scientific_name": "Aeromonas hydrophila", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["aeromonas hydrophila", "a. hydrophila"], "zh_cn": "嗜水气单胞菌", "en": "Aeromonas hydrophila"},
+    {"canonical_id": "NCBITaxon:636", "ncbi_scientific_name": "Edwardsiella tarda", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["edwardsiella tarda", "e. tarda"], "zh_cn": null, "en": "Edwardsiella tarda"},
+    {"canonical_id": "NCBITaxon:562", "ncbi_scientific_name": "Escherichia coli", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["escherichia coli", "e. coli"], "zh_cn": "大肠埃希菌", "en": "Escherichia coli"},
+    {"canonical_id": "NCBITaxon:28450", "ncbi_scientific_name": "Burkholderia pseudomallei", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["burkholderia pseudomallei", "b. pseudomallei"], "zh_cn": null, "en": "Burkholderia pseudomallei"},
+    {"canonical_id": "NCBITaxon:173", "ncbi_scientific_name": "Leptospira interrogans", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["leptospira interrogans", "l. interrogans"], "zh_cn": "问号钩端螺旋体", "en": "Leptospira interrogans"},
+    {"canonical_id": "NCBITaxon:1639", "ncbi_scientific_name": "Listeria monocytogenes", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["listeria monocytogenes", "l. monocytogenes"], "zh_cn": "单核细胞增生李斯特菌", "en": "Listeria monocytogenes"},
+    {"canonical_id": "NCBITaxon:28188", "ncbi_scientific_name": "Capnocytophaga canimorsus", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["capnocytophaga canimorsus", "c. canimorsus"], "zh_cn": null, "en": "Capnocytophaga canimorsus"},
+    {"canonical_id": "NCBITaxon:1314", "ncbi_scientific_name": "Streptococcus pyogenes", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["streptococcus pyogenes", "s. pyogenes"], "zh_cn": "化脓性链球菌", "en": "Streptococcus pyogenes"},
+    {"canonical_id": "NCBITaxon:2697049", "ncbi_scientific_name": "Severe acute respiratory syndrome coronavirus 2", "taxonomic_rank": "virus_type", "ncbi_taxonomy_rank": "no rank", "rank_mapping_rule": "ncbi_unranked_virus_to_product_virus_type_v1", "lineage_anchor": "NCBITaxon:10239", "aliases": ["sars-cov-2", "severe acute respiratory syndrome coronavirus 2", "covid-19 virus"], "zh_cn": "严重急性呼吸综合征冠状病毒2", "en": "SARS-CoV-2"},
+    {"canonical_id": "NCBITaxon:727", "ncbi_scientific_name": "Haemophilus influenzae", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["haemophilus influenzae", "h. influenzae"], "zh_cn": "流感嗜血杆菌", "en": "Haemophilus influenzae"},
+    {"canonical_id": "NCBITaxon:11320", "ncbi_scientific_name": "Influenza A virus", "taxonomic_rank": "virus_type", "ncbi_taxonomy_rank": "no rank", "rank_mapping_rule": "ncbi_unranked_virus_to_product_virus_type_v1", "lineage_anchor": "NCBITaxon:10239", "aliases": ["influenza a virus", "influenza a"], "zh_cn": "甲型流感病毒", "en": "Influenza A virus"},
+    {"canonical_id": "NCBITaxon:12637", "ncbi_scientific_name": "Dengue virus", "taxonomic_rank": "virus_type", "ncbi_taxonomy_rank": "no rank", "rank_mapping_rule": "ncbi_unranked_virus_to_product_virus_type_v1", "lineage_anchor": "NCBITaxon:10239", "aliases": ["dengue virus"], "zh_cn": "登革病毒", "en": "Dengue virus"},
+    {"canonical_id": "NCBITaxon:11250", "ncbi_scientific_name": "human respiratory syncytial virus", "taxonomic_rank": "virus_type", "ncbi_taxonomy_rank": "no rank", "rank_mapping_rule": "ncbi_unranked_virus_to_product_virus_type_v1", "lineage_anchor": "NCBITaxon:10239", "aliases": ["human respiratory syncytial virus", "respiratory syncytial virus", "rsv"], "zh_cn": "呼吸道合胞病毒", "en": "Respiratory syncytial virus"},
+    {"canonical_id": "NCBITaxon:1280", "ncbi_scientific_name": "Staphylococcus aureus", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["staphylococcus aureus", "s. aureus"], "zh_cn": "金黄色葡萄球菌", "en": "Staphylococcus aureus"},
+    {"canonical_id": "NCBITaxon:1352", "ncbi_scientific_name": "Enterococcus faecium", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["enterococcus faecium", "e. faecium"], "zh_cn": "屎肠球菌", "en": "Enterococcus faecium"},
+    {"canonical_id": "NCBITaxon:5476", "ncbi_scientific_name": "Candida albicans", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["candida albicans", "c. albicans"], "zh_cn": "白色念珠菌", "en": "Candida albicans"},
+    {"canonical_id": "NCBITaxon:470", "ncbi_scientific_name": "Acinetobacter baumannii", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["acinetobacter baumannii", "a. baumannii"], "zh_cn": "鲍曼不动杆菌", "en": "Acinetobacter baumannii"},
+    {"canonical_id": "NCBITaxon:287", "ncbi_scientific_name": "Pseudomonas aeruginosa", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["pseudomonas aeruginosa", "p. aeruginosa"], "zh_cn": "铜绿假单胞菌", "en": "Pseudomonas aeruginosa"},
+    {"canonical_id": "NCBITaxon:83558", "ncbi_scientific_name": "Chlamydia pneumoniae", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["chlamydia pneumoniae", "chlamydophila pneumoniae"], "zh_cn": "肺炎衣原体", "en": "Chlamydia pneumoniae"},
+    {"canonical_id": "NCBITaxon:480", "ncbi_scientific_name": "Moraxella catarrhalis", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["moraxella catarrhalis", "m. catarrhalis"], "zh_cn": "卡他莫拉菌", "en": "Moraxella catarrhalis"},
+    {"canonical_id": "NCBITaxon:42068", "ncbi_scientific_name": "Pneumocystis jirovecii", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["pneumocystis jirovecii", "p. jirovecii"], "zh_cn": "耶氏肺孢子菌", "en": "Pneumocystis jirovecii"},
+    {"canonical_id": "NCBITaxon:746128", "ncbi_scientific_name": "Aspergillus fumigatus", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["aspergillus fumigatus", "a. fumigatus"], "zh_cn": "烟曲霉", "en": "Aspergillus fumigatus"},
+    {"canonical_id": "NCBITaxon:162145", "ncbi_scientific_name": "human metapneumovirus", "taxonomic_rank": "virus_type", "ncbi_taxonomy_rank": "no rank", "rank_mapping_rule": "ncbi_unranked_virus_to_product_virus_type_v1", "lineage_anchor": "NCBITaxon:10239", "aliases": ["human metapneumovirus", "hmpv"], "zh_cn": "人偏肺病毒", "en": "Human metapneumovirus"},
+    {"canonical_id": "NCBITaxon:1496", "ncbi_scientific_name": "Clostridioides difficile", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["clostridioides difficile", "c. difficile"], "zh_cn": "艰难梭菌", "en": "Clostridioides difficile"},
+    {"canonical_id": "NCBITaxon:571", "ncbi_scientific_name": "Klebsiella oxytoca", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["klebsiella oxytoca", "k. oxytoca"], "zh_cn": "产酸克雷伯菌", "en": "Klebsiella oxytoca"},
+    {"canonical_id": "NCBITaxon:197", "ncbi_scientific_name": "Campylobacter jejuni", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["campylobacter jejuni", "c. jejuni"], "zh_cn": "空肠弯曲菌", "en": "Campylobacter jejuni"},
+    {"canonical_id": "NCBITaxon:624", "ncbi_scientific_name": "Shigella sonnei", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["shigella sonnei", "s. sonnei"], "zh_cn": "宋内志贺菌", "en": "Shigella sonnei"},
+    {"canonical_id": "NCBITaxon:1305", "ncbi_scientific_name": "Streptococcus sanguinis", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["streptococcus sanguinis", "s. sanguinis"], "zh_cn": "血链球菌", "en": "Streptococcus sanguinis"},
+    {"canonical_id": "NCBITaxon:777", "ncbi_scientific_name": "Coxiella burnetii", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["coxiella burnetii", "c. burnetii"], "zh_cn": null, "en": "Coxiella burnetii"},
+    {"canonical_id": "NCBITaxon:38323", "ncbi_scientific_name": "Bartonella henselae", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["bartonella henselae", "b. henselae"], "zh_cn": null, "en": "Bartonella henselae"},
+    {"canonical_id": "NCBITaxon:1282", "ncbi_scientific_name": "Staphylococcus epidermidis", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["staphylococcus epidermidis", "s. epidermidis"], "zh_cn": "表皮葡萄球菌", "en": "Staphylococcus epidermidis"},
+    {"canonical_id": "NCBITaxon:1747", "ncbi_scientific_name": "Cutibacterium acnes", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["cutibacterium acnes", "c. acnes"], "zh_cn": null, "en": "Cutibacterium acnes"},
+    {"canonical_id": "NCBITaxon:1303", "ncbi_scientific_name": "Streptococcus oralis", "taxonomic_rank": "species", "ncbi_taxonomy_rank": "species", "rank_mapping_rule": "ncbi_species_to_product_species_v1", "aliases": ["streptococcus oralis", "s. oralis"], "zh_cn": "口腔链球菌", "en": "Streptococcus oralis"}
+  ],
+  "categories": {
+    "bacteria": {"zh_cn": "细菌", "en": "Bacteria"},
+    "virus": {"zh_cn": "病毒", "en": "Virus"},
+    "fungus": {"zh_cn": "真菌", "en": "Fungus"},
+    "parasite": {"zh_cn": "寄生虫", "en": "Parasite"},
+    "other": {"zh_cn": "其他已知病原", "en": "Other known pathogen"},
+    "unknown": {"zh_cn": "未知或未覆盖病原", "en": "Unknown or uncovered pathogen"}
+  },
+  "syndromes": {
+    "respiratory": {"zh_cn": "呼吸道感染综合征", "en": "Respiratory infection syndrome"},
+    "bloodstream": {"zh_cn": "血流感染综合征", "en": "Bloodstream infection syndrome"},
+    "urinary": {"zh_cn": "泌尿系统感染综合征", "en": "Urinary tract infection syndrome"},
+    "central_nervous_system": {"zh_cn": "中枢神经系统感染综合征", "en": "Central nervous system infection syndrome"},
+    "other": {"zh_cn": "其他感染综合征", "en": "Other infectious syndrome"},
+    "non_infectious": {"zh_cn": "非感染性方向", "en": "Non-infectious direction"},
+    "unknown": {"zh_cn": "综合征不确定", "en": "Uncertain syndrome"}
+  },
+  "safety_states": {
+    "non_infection": {"product_state": "infection_unlikely", "zh_cn": "当前更支持非感染性方向", "en": "Current evidence favours a non-infectious direction"},
+    "species_set": {"product_state": "species_set", "zh_cn": "可报告物种级预测集合", "en": "A species-level prediction set may be reported"},
+    "category_only": {"product_state": "category_only", "zh_cn": "仅报告病原大类", "en": "Report pathogen category only"},
+    "next_test": {"product_state": "more_information_needed", "zh_cn": "需要更多关键信息", "en": "More key information is needed"},
+    "abstain": {"product_state": "abstain", "zh_cn": "弃答并转人工复核", "en": "Abstain and refer for human review"}
+  },
+  "next_tests": {
+    "respiratory-multiplex-naat": {"zh_cn": "呼吸道多重核酸检测", "en": "Respiratory multiplex nucleic acid amplification test"},
+    "respiratory-culture": {"zh_cn": "合格呼吸道标本涂片、培养及药敏", "en": "Quality-assessed respiratory smear, culture and susceptibility testing"},
+    "paired-blood-cultures": {"zh_cn": "规范采集多套血培养", "en": "Properly collected multiple blood-culture sets"},
+    "urine-culture-ast": {"zh_cn": "规范尿培养及药敏", "en": "Properly collected urine culture and susceptibility testing"},
+    "csf-standard-plus-naat": {"zh_cn": "脑脊液常规、生化、培养及指征明确的核酸检测", "en": "CSF routine studies, biochemistry, culture and indicated nucleic acid testing"},
+    "confirm-visible-time": {"zh_cn": "核对关键检查的实际可见时间", "en": "Verify when the key test actually became visible"}
+  }
+}

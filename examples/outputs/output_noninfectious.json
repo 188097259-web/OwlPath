@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0-research",
+  "run_id": "RUN-SYN-NONINFECTIOUS-001",
+  "case_id": "SYN-CASE-NONINFECTIOUS-001",
+  "snapshot_id": "SYN-SNAPSHOT-NONINFECTIOUS-001",
+  "decision_time": "2026-05-20T16:00:00+08:00",
+  "snapshot_stage": "imaging_available",
+  "run_context": "synthetic_acceptance_test",
+  "generated_at": "2026-08-06T10:04:00+08:00",
+  "research_use_only": true,
+  "not_a_medical_device": true,
+  "main_state": "infection_unlikely",
+  "scope": {
+    "status": "eligible",
+    "reasons": ["within_declared_v1_scope_for_infection_triage"],
+    "contract_version": "1.0.0-research"
+  },
+  "time_gate": {
+    "rule_version": "1.0.0-research",
+    "included_event_ids": ["NIN-E01", "NIN-E02", "NIN-E03", "NIN-E04"],
+    "excluded_events": [],
+    "future_information_leakage_detected": false
+  },
+  "data_quality": {
+    "grade": "high",
+    "completeness_score": 0.89,
+    "conflicts": [],
+    "missing_critical_information": []
+  },
+  "infection_assessment": {
+    "evaluated": true,
+    "infection_probability": 0.16,
+    "non_infection_probability": 0.84,
+    "syndrome": "non_infectious_mimic_more_likely"
+  },
+  "pathogen_assessment": {
+    "evaluated": false,
+    "probability_condition": "not_evaluated",
+    "category_probabilities": {},
+    "unknown_probability": null,
+    "coinfection_probability": null,
+    "top_k": [],
+    "prediction_set": [],
+    "permitted_resolution": "none_infection_unlikely"
+  },
+  "safety": {
+    "calibration_status": "valid_for_declared_research_scope",
+    "ood_status": "in_distribution",
+    "ood_score": 0.12,
+    "model_disagreement": "low",
+    "abstained": false,
+    "reason_codes": ["non_infectious_explanation_dominant"]
+  },
+  "next_information": null,
+  "evidence_summary": {
+    "supporting": [
+      {
+        "fact_id": "FACT-NIN-01",
+        "event_ids": ["NIN-E01", "NIN-E03", "NIN-E04"],
+        "target": "non_infectious_mimic",
+        "quality": "high",
+        "statement": "无发热、低炎症指标、端坐呼吸以及倾向肺水肿的影像组合，使非感染性解释更强。"
+      }
+    ],
+    "contradicting": [
+      {
+        "fact_id": "FACT-NIN-02",
+        "event_ids": ["NIN-E02"],
+        "target": "infection_unlikely",
+        "quality": "moderate",
+        "statement": "低氧和呼吸增快并非特异表现，不能单独完全排除感染。"
+      }
+    ]
+  },
+  "versions": {
+    "intended_use": "1.0.0-research",
+    "time_gate": "1.0.0-research",
+    "infection_model": "synthetic-infection-model-0.1.0",
+    "pathogen_model": "synthetic-pathogen-model-0.1.0",
+    "calibrator": "synthetic-calibrator-0.1.0",
+    "ood_detector": "synthetic-ood-detector-0.1.0",
+    "local_prior": "2026-W31-synthetic-v1",
+    "next_information_rules": "1.0.0-research-example",
+    "knowledge_base": "synthetic-kb-0.1.0",
+    "report_prompt": "synthetic-report-prompt-0.1.0"
+  },
+  "audit": {
+    "structured_result_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+    "tool_call_count": 2,
+    "human_review_required": true
+  },
+  "human_readable_summary": "在该纯虚构快照中，非感染性解释明显更强，因此系统不生成病原体排序；这不是排除感染的临床结论，也不可直接指导诊疗。",
+  "disclaimer": "本结果仅用于竞赛展示和方法学研究，尚未完成临床有效性验证，不是医疗器械，不可作为真实患者的独立诊断、检查医嘱或治疗依据。"
+}

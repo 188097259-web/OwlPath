@@ -1,0 +1,147 @@
+{
+  "ruleset_id": "owlpath-next-information-adult-community-lrti",
+  "version": "1.0.0-research-example",
+  "synthetic_example": true,
+  "research_use_only": true,
+  "not_an_ordering_system": true,
+  "statement": "仅从临床专家预先审核的白名单中，评估哪一项新信息最可能缩小当前不确定性；不自动开单，不直接指导治疗。",
+  "global_hard_stops": [
+    "scope_out_of_scope",
+    "immediate_resuscitation_or_procedure_required",
+    "unresolved_severe_identity_or_time_conflict",
+    "test_not_on_allowlist",
+    "test_contraindicated_or_not_available",
+    "result_would_not_change_current_research_conclusion",
+    "recommendation_would_delay_standard_care"
+  ],
+  "selection_policy": {
+    "maximum_items": 1,
+    "minimum_expected_information_gain": 0.15,
+    "minimum_total_score": 0.45,
+    "return_null_if_no_item_qualifies": true,
+    "score_formula": "0.45*information_gain + 0.20*availability + 0.15*turnaround + 0.10*low_cost + 0.10*low_harm",
+    "tie_break_order": [
+      "lower_harm",
+      "shorter_turnaround",
+      "higher_local_availability",
+      "lower_cost"
+    ],
+    "must_explain": [
+      "which_current_hypotheses_are_hard_to_distinguish",
+      "how_the_new_information_could_change_the_output",
+      "availability_and_limitations",
+      "not_an_order"
+    ]
+  },
+  "allowlist": [
+    {
+      "item_id": "HIST-EXPOSURE-CLARIFICATION",
+      "kind": "history_question",
+      "display_name": "补充关键暴露史",
+      "eligible_when": [
+        "exposure_history_missing_or_uncertain",
+        "candidate_ranking_is_exposure_sensitive"
+      ],
+      "not_eligible_when": [
+        "patient_unable_to_answer_and_no_proxy_available"
+      ],
+      "default_scores": {
+        "availability": 1.0,
+        "turnaround": 1.0,
+        "low_cost": 1.0,
+        "low_harm": 1.0
+      },
+      "limitations": "患者回忆可能不准确，不能把“不知道”编码为“无暴露”。"
+    },
+    {
+      "item_id": "LAB-RESPIRATORY-MULTIPLEX-NAAT",
+      "kind": "laboratory_test",
+      "display_name": "呼吸道多重核酸检测",
+      "eligible_when": [
+        "viral_and_bacterial_or_multiple_viral_hypotheses_remain",
+        "appropriate_respiratory_specimen_is_obtainable",
+        "local_assay_is_available"
+      ],
+      "not_eligible_when": [
+        "same_or_broader_valid_result_already_visible_at_decision_time",
+        "specimen_timing_or_quality_makes_result_uninterpretable"
+      ],
+      "default_scores": {
+        "availability": 0.8,
+        "turnaround": 0.8,
+        "low_cost": 0.5,
+        "low_harm": 0.95
+      },
+      "limitations": "检出不必然等于本次致病，阴性结果也受采样时间、标本质量和面板覆盖范围影响。"
+    },
+    {
+      "item_id": "SPECIMEN-SPUTUM-QUALITY-AND-CULTURE",
+      "kind": "specimen_quality_check",
+      "display_name": "痰标本质量评估及常规微生物检测",
+      "eligible_when": [
+        "productive_cough_or_appropriate_lower_respiratory_specimen_available",
+        "bacterial_category_remains_material",
+        "specimen_can_be_collected_without_delaying_standard_care"
+      ],
+      "not_eligible_when": [
+        "no_interpretable_specimen_can_be_obtained",
+        "equivalent_result_already_visible_at_decision_time"
+      ],
+      "default_scores": {
+        "availability": 0.75,
+        "turnaround": 0.45,
+        "low_cost": 0.7,
+        "low_harm": 0.85
+      },
+      "limitations": "非无菌部位标本容易受定植和污染影响；阴性不能等同于无细菌感染。"
+    },
+    {
+      "item_id": "LAB-BLOOD-CULTURE-SET",
+      "kind": "laboratory_test",
+      "display_name": "血培养标本组",
+      "eligible_when": [
+        "clinician_assessed_systemic_infection_or_bacteremia_risk_is_material",
+        "result_would_change_causal_label_or_candidate_set",
+        "appropriate_collection_is_available"
+      ],
+      "not_eligible_when": [
+        "recommendation_is_based_only_on_model_probability_without_clinical_indication",
+        "same_episode_valid_result_already_visible_at_decision_time"
+      ],
+      "default_scores": {
+        "availability": 0.85,
+        "turnaround": 0.3,
+        "low_cost": 0.65,
+        "low_harm": 0.8
+      },
+      "limitations": "结果时间较长，存在污染和抗微生物药暴露后假阴性问题。"
+    },
+    {
+      "item_id": "IMG-RADIOLOGY-REVIEW",
+      "kind": "imaging",
+      "display_name": "核对原始影像或由影像专业人员复核报告",
+      "eligible_when": [
+        "imaging_report_and_clinical_features_conflict",
+        "imaging_source_or_report_quality_is_uncertain"
+      ],
+      "not_eligible_when": [
+        "review_would_delay_urgent_standard_care",
+        "original_images_are_not_available"
+      ],
+      "default_scores": {
+        "availability": 0.65,
+        "turnaround": 0.65,
+        "low_cost": 0.7,
+        "low_harm": 1.0
+      },
+      "limitations": "影像多数情况不能单独确定病原体，复核主要用于解决数据冲突和综合征判断。"
+    }
+  ],
+  "output_constraints": {
+    "not_an_order_must_be_true": true,
+    "drug_or_treatment_recommendation_prohibited": true,
+    "must_return_null_when_scope_out_of_scope": true,
+    "must_return_null_when_no_allowlisted_item_meets_threshold": true,
+    "human_review_required": true
+  }
+}

@@ -1,0 +1,666 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "BomRef.3541126925196104.6406461303818747",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "PyYAML",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License and classifier"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "6.0.3"
+    },
+    {
+      "bom-ref": "BomRef.8964960007095737.24704882031863507",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "annotated-doc",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "0.0.5"
+    },
+    {
+      "bom-ref": "BomRef.186270346631645.7505198050748422",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "annotated-types",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "0.8.0"
+    },
+    {
+      "bom-ref": "BomRef.6477161505707318.03884083047771092",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "anyio",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "4.14.2"
+    },
+    {
+      "bom-ref": "BomRef.9167436384137195.6941605342760906",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "name": "certifi",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License and classifier"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "2026.7.22"
+    },
+    {
+      "bom-ref": "BomRef.318788133407244.14009930305401797",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT-0"
+          }
+        }
+      ],
+      "name": "cffi",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "2.1.1"
+    },
+    {
+      "bom-ref": "BomRef.19600917494408554.5001522126652728",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "click",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE.txt"
+        }
+      ],
+      "type": "library",
+      "version": "8.4.2"
+    },
+    {
+      "bom-ref": "BomRef.44647489789422623.5643023077259646",
+      "licenses": [
+        {
+          "expression": "Apache-2.0 OR BSD-3-Clause"
+        }
+      ],
+      "name": "cryptography",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE; LICENSE.APACHE; LICENSE.BSD"
+        }
+      ],
+      "type": "library",
+      "version": "50.0.0"
+    },
+    {
+      "bom-ref": "BomRef.7172928532477643.3005275118259376",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "fastapi",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "0.141.1"
+    },
+    {
+      "bom-ref": "BomRef.0851465127303056.44218834754072356",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "h11",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License and classifier"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE.txt"
+        }
+      ],
+      "type": "library",
+      "version": "0.16.0"
+    },
+    {
+      "bom-ref": "BomRef.4067446400054543.9914020477379406",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "httpcore",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE.md"
+        }
+      ],
+      "type": "library",
+      "version": "1.0.9"
+    },
+    {
+      "bom-ref": "BomRef.40698628912854395.47418185521886924",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "httptools",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE; vendor/http-parser/LICENSE-MIT; vendor/llhttp/LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "0.8.0"
+    },
+    {
+      "bom-ref": "BomRef.22829068558159382.7164386301217683",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "httpx",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License and classifier"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE.md"
+        }
+      ],
+      "type": "library",
+      "version": "0.28.1"
+    },
+    {
+      "bom-ref": "BomRef.9996007917918555.8152100056263156",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "idna",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE.md"
+        }
+      ],
+      "type": "library",
+      "version": "3.18"
+    },
+    {
+      "bom-ref": "BomRef.16348374525330234.9115882760282752",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "pycparser",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "3.0"
+    },
+    {
+      "bom-ref": "BomRef.06984807626841849.689265345616922",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "pydantic",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "2.13.4"
+    },
+    {
+      "bom-ref": "BomRef.6323940771462075.9780022121427209",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "pydantic_core",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "2.46.4"
+    },
+    {
+      "bom-ref": "BomRef.38750952628479673.6066936911764779",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "python-dotenv",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "1.2.2"
+    },
+    {
+      "bom-ref": "BomRef.6047618035272793.7329573375181309",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "starlette",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE.md"
+        }
+      ],
+      "type": "library",
+      "version": "1.6.0"
+    },
+    {
+      "bom-ref": "BomRef.8763236952231593.6032579663322813",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "typing-inspection",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "0.4.4"
+    },
+    {
+      "bom-ref": "BomRef.13332264445534026.7578030130952726",
+      "licenses": [
+        {
+          "license": {
+            "id": "PSF-2.0"
+          }
+        }
+      ],
+      "name": "typing_extensions",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "4.16.0"
+    },
+    {
+      "bom-ref": "BomRef.7570184614228879.8604594627542614",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "uvicorn",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE.md"
+        }
+      ],
+      "type": "library",
+      "version": "0.52.3"
+    },
+    {
+      "bom-ref": "BomRef.38972635568921543.6983960143134189",
+      "licenses": [
+        {
+          "license": {
+            "name": "METADATA says MIT License; distribution also ships Apache-2.0 and MIT license texts"
+          }
+        }
+      ],
+      "name": "uvloop",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License plus Apache/MIT classifiers; no SPDX expression declared"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE-APACHE; LICENSE-MIT"
+        },
+        {
+          "name": "owlpath:license-review",
+          "value": "manual review retained: do not infer AND/OR relationship"
+        }
+      ],
+      "type": "library",
+      "version": "0.22.1"
+    },
+    {
+      "bom-ref": "BomRef.698691570826273.8545003817250265",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "watchfiles",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License and classifier"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "1.2.0"
+    },
+    {
+      "bom-ref": "BomRef.882856309316408.6712609683369032",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "websockets",
+      "properties": [
+        {
+          "name": "owlpath:license-evidence",
+          "value": "installed METADATA License-Expression"
+        },
+        {
+          "name": "owlpath:license-files",
+          "value": "LICENSE"
+        }
+      ],
+      "type": "library",
+      "version": "17.0.1"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "BomRef.06984807626841849.689265345616922"
+    },
+    {
+      "ref": "BomRef.0851465127303056.44218834754072356"
+    },
+    {
+      "ref": "BomRef.13332264445534026.7578030130952726"
+    },
+    {
+      "ref": "BomRef.16348374525330234.9115882760282752"
+    },
+    {
+      "ref": "BomRef.186270346631645.7505198050748422"
+    },
+    {
+      "ref": "BomRef.19600917494408554.5001522126652728"
+    },
+    {
+      "ref": "BomRef.22829068558159382.7164386301217683"
+    },
+    {
+      "ref": "BomRef.318788133407244.14009930305401797"
+    },
+    {
+      "ref": "BomRef.3541126925196104.6406461303818747"
+    },
+    {
+      "ref": "BomRef.38750952628479673.6066936911764779"
+    },
+    {
+      "ref": "BomRef.38972635568921543.6983960143134189"
+    },
+    {
+      "ref": "BomRef.4067446400054543.9914020477379406"
+    },
+    {
+      "ref": "BomRef.40698628912854395.47418185521886924"
+    },
+    {
+      "ref": "BomRef.44647489789422623.5643023077259646"
+    },
+    {
+      "ref": "BomRef.6047618035272793.7329573375181309"
+    },
+    {
+      "ref": "BomRef.6323940771462075.9780022121427209"
+    },
+    {
+      "ref": "BomRef.6477161505707318.03884083047771092"
+    },
+    {
+      "ref": "BomRef.698691570826273.8545003817250265"
+    },
+    {
+      "ref": "BomRef.7172928532477643.3005275118259376"
+    },
+    {
+      "ref": "BomRef.7570184614228879.8604594627542614"
+    },
+    {
+      "ref": "BomRef.8763236952231593.6032579663322813"
+    },
+    {
+      "ref": "BomRef.882856309316408.6712609683369032"
+    },
+    {
+      "ref": "BomRef.8964960007095737.24704882031863507"
+    },
+    {
+      "ref": "BomRef.9167436384137195.6941605342760906"
+    },
+    {
+      "ref": "BomRef.9996007917918555.8152100056263156"
+    }
+  ],
+  "metadata": {
+    "timestamp": "2026-08-16T10:12:47.454095+00:00"
+  },
+  "serialNumber": "urn:uuid:38026832-5767-4b91-a327-f85e58b37411",
+  "specVersion": "1.4",
+  "version": 1
+}

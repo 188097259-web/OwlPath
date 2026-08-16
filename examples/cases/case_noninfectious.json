@@ -1,0 +1,55 @@
+{
+  "case_id": "SYN-CASE-NONINFECTIOUS-001",
+  "title": "非感染性解释更强的虚构病例",
+  "is_synthetic": true,
+  "contains_real_patient_data": false,
+  "prohibited_real_world_use": true,
+  "expected_main_state": "infection_unlikely",
+  "decision_time": "2026-05-20T16:00:00+08:00",
+  "snapshot_stage": "imaging_available",
+  "run_context": "synthetic_acceptance_test",
+  "demographics": {"age_years": 76, "sex": "male", "pregnant": false},
+  "context": {"care_setting": "emergency_department", "onset": "community_onset", "symptom_duration_days": 6},
+  "events": [
+    {
+      "event_id": "NIN-E01",
+      "event_type": "symptom",
+      "clinician_visible_at": "2026-05-20T13:00:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"fever": "explicitly_absent", "orthopnea": "present", "paroxysmal_nocturnal_dyspnea": "present", "productive_cough": "explicitly_absent"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "NIN-E02",
+      "event_type": "vital_sign",
+      "clinician_visible_at": "2026-05-20T13:15:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"temperature_c": 36.7, "respiratory_rate_bpm": 24, "spo2_percent_room_air": 92},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "NIN-E03",
+      "event_type": "laboratory_result",
+      "clinician_visible_at": "2026-05-20T14:10:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"wbc_10e9_l": 6.8, "crp_mg_l": 7, "pct_ng_ml": 0.03},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "NIN-E04",
+      "event_type": "imaging_report",
+      "clinician_visible_at": "2026-05-20T15:30:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"report": "双肺对称性间质及肺泡性密度增高，伴双侧胸腔积液和心影增大，更倾向肺水肿。"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    }
+  ]
+}

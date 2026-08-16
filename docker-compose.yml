@@ -1,0 +1,26 @@
+services:
+  owlpath:
+    build:
+      context: .
+    ports:
+      - "127.0.0.1:${OWLPATH_PORT:-8000}:8000"
+    environment:
+      OWLPATH_DATA_DIR: /app/data
+      OWLPATH_PROVIDER_TIMEOUT_SECONDS: "120"
+    volumes:
+      - owlpath-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,urllib.request; d=json.load(urllib.request.urlopen('http://127.0.0.1:8000/api/health',timeout=3)); assert d.get('service') or d.get('status')"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  owlpath-data:
+

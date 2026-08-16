@@ -1,0 +1,65 @@
+{
+  "case_id": "SYN-CASE-CATEGORY-001",
+  "title": "只能稳定到病原大类的虚构病例",
+  "is_synthetic": true,
+  "contains_real_patient_data": false,
+  "prohibited_real_world_use": true,
+  "expected_main_state": "category_only",
+  "decision_time": "2026-02-03T11:10:00+08:00",
+  "snapshot_stage": "routine_labs_available",
+  "run_context": "synthetic_acceptance_test",
+  "demographics": {"age_years": 62, "sex": "male", "pregnant": false},
+  "context": {"care_setting": "emergency_department", "onset": "community_onset", "symptom_duration_days": 4},
+  "events": [
+    {
+      "event_id": "CAT-E01",
+      "event_type": "symptom",
+      "clinician_visible_at": "2026-02-03T09:00:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"fever": "present", "productive_cough": "present", "pleuritic_pain": "present"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CAT-E02",
+      "event_type": "history_fact",
+      "clinician_visible_at": "2026-02-03T09:05:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"recent_hospitalization": "explicitly_absent", "severe_immunosuppression": "explicitly_absent", "exposure_history": "not_asked"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CAT-E03",
+      "event_type": "vital_sign",
+      "clinician_visible_at": "2026-02-03T09:15:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"temperature_c": 38.4, "respiratory_rate_bpm": 23, "spo2_percent_room_air": 93},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CAT-E04",
+      "event_type": "laboratory_result",
+      "clinician_visible_at": "2026-02-03T10:40:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"wbc_10e9_l": 14.2, "neutrophils_percent": 86, "crp_mg_l": 126, "pct_ng_ml": 0.48},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "CAT-E05",
+      "event_type": "imaging_report",
+      "clinician_visible_at": "2026-02-03T12:30:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"report": "右下肺局灶性实变。"},
+      "eligible_at_decision_time": false,
+      "exclusion_reason": "visible_after_decision_time"
+    }
+  ]
+}

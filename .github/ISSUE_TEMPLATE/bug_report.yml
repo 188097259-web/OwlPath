@@ -1,0 +1,27 @@
+name: Bug report
+description: 报告可复现的软件问题（不得粘贴真实病历）
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "请只使用纯合成数据复现，不要上传真实患者信息、API Key 或未过滤日志。"
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 纯合成复现步骤
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本或 commit
+    validations:
+      required: true
+

@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: >-
+  If you use this research software, please cite it as the OwlPath Project Team.
+  The project founder and clinical lead is the founder of DR.ECC; their verified
+  identity has been disclosed to the competition organizers and is intentionally
+  not displayed in this public repository.
+title: "OwlPath: a development-first multi-specialty agent system for pathogen hypothesis generation"
+type: software
+version: "0.1.0"
+authors:
+  - name: "OwlPath Project Team"
+repository-code: "https://github.com/188097259-web/OwlPath"
+url: "https://github.com/188097259-web/OwlPath"
+license: MIT
+abstract: >-
+  OwlPath is a local web research prototype that coordinates specialty agents,
+  evidence retrieval, pathogen hypothesis synthesis, deterministic output
+  validation, and independent review. It is intended for software development,
+  competition demonstration, and methods research only. It is not a medical
+  device and has not completed clinical validation.
+keywords:
+  - artificial intelligence
+  - clinical research software
+  - infectious diseases
+  - pathogen hypothesis generation
+  - multi-agent systems

@@ -1,0 +1,16 @@
+system,condition,evaluation_units,top1_hits,top1_percent,top3_hits,top3_percent,top5_hits,top5_percent
+OwlPath,internal_exploratory,50_cases,11,22.0,34,68.0,43,86.0
+GPT-5.6,single_llm,50_cases,7,14.0,22,44.0,39,78.0
+Fable,single_llm,50_cases,8,16.0,19,38.0,31,62.0
+Gemini,single_llm,50_cases,6,12.0,18,36.0,27,54.0
+DeepSeek,single_llm,50_cases,4,8.0,20,40.0,37,74.0
+Qwen,single_llm,50_cases,7,14.0,21,42.0,32,64.0
+Resident physician,independent,50_physician_case_judgments,4,8.0,9,18.0,13,26.0
+Attending physician,independent,50_physician_case_judgments,7,14.0,14,28.0,18,36.0
+Chief physician,independent,50_physician_case_judgments,6,12.0,16,32.0,25,50.0
+Three physicians pooled,independent,150_physician_case_judgments,17,11.3,39,26.0,56,37.3
+Resident physician,tool_or_ai_assisted,50_physician_case_judgments,6,12.0,16,32.0,25,50.0
+Attending physician,tool_or_ai_assisted,50_physician_case_judgments,8,16.0,17,34.0,24,48.0
+Chief physician,tool_or_ai_assisted,50_physician_case_judgments,9,18.0,21,42.0,27,54.0
+Three physicians pooled,tool_or_ai_assisted,150_physician_case_judgments,23,15.3,54,36.0,76,50.7
+

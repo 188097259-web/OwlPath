@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0-research",
+  "run_id": "RUN-SYN-TYPICAL-001",
+  "case_id": "SYN-CASE-TYPICAL-001",
+  "snapshot_id": "SYN-SNAPSHOT-TYPICAL-001",
+  "decision_time": "2026-01-15T10:00:00+08:00",
+  "snapshot_stage": "imaging_available",
+  "run_context": "synthetic_acceptance_test",
+  "generated_at": "2026-08-06T10:00:00+08:00",
+  "research_use_only": true,
+  "not_a_medical_device": true,
+  "main_state": "species_set",
+  "scope": {
+    "status": "eligible",
+    "reasons": ["within_declared_v1_scope"],
+    "contract_version": "1.0.0-research"
+  },
+  "time_gate": {
+    "rule_version": "1.0.0-research",
+    "included_event_ids": ["TYP-E01", "TYP-E02", "TYP-E03", "TYP-E04", "TYP-E05"],
+    "excluded_events": [
+      {"event_id": "TYP-E06", "reason": "visible_after_decision_time"}
+    ],
+    "future_information_leakage_detected": false
+  },
+  "data_quality": {
+    "grade": "high",
+    "completeness_score": 0.92,
+    "conflicts": [],
+    "missing_critical_information": []
+  },
+  "infection_assessment": {
+    "evaluated": true,
+    "infection_probability": 0.88,
+    "non_infection_probability": 0.12,
+    "syndrome": "suspected_acute_lrti"
+  },
+  "pathogen_assessment": {
+    "evaluated": true,
+    "probability_condition": "conditional_on_infection",
+    "category_probabilities": {
+      "bacterial": 0.22,
+      "viral": 0.68,
+      "fungal": 0.02,
+      "parasitic": 0.01,
+      "other_known": 0.01
+    },
+    "unknown_probability": 0.06,
+    "coinfection_probability": 0.12,
+    "top_k": [
+      {
+        "rank": 1,
+        "pathogen_id": "NCBITAXON:11320",
+        "display_name": "甲型流感病毒",
+        "taxonomic_level": "species",
+        "probability": 0.46,
+        "supporting_fact_ids": ["FACT-TYP-01", "FACT-TYP-02"],
+        "contradicting_fact_ids": ["FACT-TYP-03"]
+      },
+      {
+        "rank": 2,
+        "pathogen_id": "NCBITAXON:2697049",
+        "display_name": "严重急性呼吸综合征冠状病毒2",
+        "taxonomic_level": "species",
+        "probability": 0.14,
+        "supporting_fact_ids": ["FACT-TYP-02"],
+        "contradicting_fact_ids": []
+      },
+      {
+        "rank": 3,
+        "pathogen_id": "NCBITAXON:1313",
+        "display_name": "肺炎链球菌",
+        "taxonomic_level": "species",
+        "probability": 0.12,
+        "supporting_fact_ids": ["FACT-TYP-03"],
+        "contradicting_fact_ids": ["FACT-TYP-01"]
+      }
+    ],
+    "prediction_set": ["NCBITAXON:11320", "NCBITAXON:2697049", "NCBITAXON:1313"],
+    "permitted_resolution": "species"
+  },
+  "safety": {
+    "calibration_status": "valid_for_declared_research_scope",
+    "ood_status": "in_distribution",
+    "ood_score": 0.08,
+    "model_disagreement": "low",
+    "abstained": false,
+    "reason_codes": ["safety_checks_passed"]
+  },
+  "next_information": {
+    "kind": "laboratory_test",
+    "item_id": "LAB-RESPIRATORY-MULTIPLEX-NAAT",
+    "display_name": "呼吸道多重核酸检测",
+    "rationale": "在本虚构场景中可帮助区分排名靠前的多种呼吸道病原体；这只是信息价值建议，不是医嘱。",
+    "expected_information_gain": 0.61,
+    "availability": "unknown",
+    "not_an_order": true
+  },
+  "evidence_summary": {
+    "supporting": [
+      {
+        "fact_id": "FACT-TYP-01",
+        "event_ids": ["TYP-E01", "TYP-E02", "TYP-E04"],
+        "target": "viral_respiratory_infection",
+        "quality": "high",
+        "statement": "急性发热、干咳、肌痛、家庭聚集和低淋巴细胞共同支持病毒性呼吸道感染。"
+      },
+      {
+        "fact_id": "FACT-TYP-02",
+        "event_ids": ["TYP-E05"],
+        "target": "viral_pathogen_group",
+        "quality": "moderate",
+        "statement": "多发磨玻璃影与部分病毒性肺炎相容，但并不具病原体特异性。"
+      }
+    ],
+    "contradicting": [
+      {
+        "fact_id": "FACT-TYP-03",
+        "event_ids": ["TYP-E03", "TYP-E04"],
+        "target": "species_level_certainty",
+        "quality": "moderate",
+        "statement": "生命体征和炎症指标不能排除细菌感染，因此物种排序仍保留不确定性。"
+      }
+    ]
+  },
+  "versions": {
+    "intended_use": "1.0.0-research",
+    "time_gate": "1.0.0-research",
+    "infection_model": "synthetic-infection-model-0.1.0",
+    "pathogen_model": "synthetic-pathogen-model-0.1.0",
+    "calibrator": "synthetic-calibrator-0.1.0",
+    "ood_detector": "synthetic-ood-detector-0.1.0",
+    "local_prior": "2026-W31-synthetic-v1",
+    "next_information_rules": "1.0.0-research-example",
+    "knowledge_base": "synthetic-kb-0.1.0",
+    "report_prompt": "synthetic-report-prompt-0.1.0"
+  },
+  "audit": {
+    "structured_result_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "tool_call_count": 3,
+    "human_review_required": true
+  },
+  "human_readable_summary": "在该纯虚构快照中，系统允许输出一个经校准的物种级候选集合；结果仍需研究人员复核，不能据此诊断、开检查或治疗。",
+  "disclaimer": "本结果仅用于竞赛展示和方法学研究，尚未完成临床有效性验证，不是医疗器械，不可作为真实患者的独立诊断、检查医嘱或治疗依据。"
+}

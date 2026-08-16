@@ -1,0 +1,75 @@
+{
+  "case_id": "SYN-CASE-TYPICAL-001",
+  "title": "信息相对典型的成人社区起病下呼吸道感染虚构病例",
+  "is_synthetic": true,
+  "contains_real_patient_data": false,
+  "prohibited_real_world_use": true,
+  "expected_main_state": "species_set",
+  "decision_time": "2026-01-15T10:00:00+08:00",
+  "snapshot_stage": "imaging_available",
+  "run_context": "synthetic_acceptance_test",
+  "demographics": {"age_years": 46, "sex": "female", "pregnant": false},
+  "context": {"care_setting": "emergency_department", "onset": "community_onset", "symptom_duration_days": 2},
+  "events": [
+    {
+      "event_id": "TYP-E01",
+      "event_type": "symptom",
+      "clinician_visible_at": "2026-01-15T08:20:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"fever": "present", "dry_cough": "present", "myalgia": "present", "onset": "acute"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "TYP-E02",
+      "event_type": "history_fact",
+      "clinician_visible_at": "2026-01-15T08:25:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"household_fever_cluster": "present", "recent_hospitalization": "explicitly_absent", "severe_immunosuppression": "explicitly_absent"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "TYP-E03",
+      "event_type": "vital_sign",
+      "clinician_visible_at": "2026-01-15T08:30:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"temperature_c": 39.0, "heart_rate_bpm": 104, "respiratory_rate_bpm": 22, "spo2_percent_room_air": 94},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "TYP-E04",
+      "event_type": "laboratory_result",
+      "clinician_visible_at": "2026-01-15T09:10:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"wbc_10e9_l": 5.1, "lymphocytes_10e9_l": 0.7, "crp_mg_l": 28, "pct_ng_ml": 0.08},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "TYP-E05",
+      "event_type": "imaging_report",
+      "clinician_visible_at": "2026-01-15T09:45:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"report": "双肺多发斑片状磨玻璃密度影，未见明显胸腔积液。"},
+      "eligible_at_decision_time": true,
+      "exclusion_reason": null
+    },
+    {
+      "event_id": "TYP-E06",
+      "event_type": "microbiology_result",
+      "clinician_visible_at": "2026-01-15T14:20:00+08:00",
+      "status": "final",
+      "quality": "usable",
+      "value": {"synthetic_result_hidden_from_current_snapshot": true},
+      "eligible_at_decision_time": false,
+      "exclusion_reason": "visible_after_decision_time"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[project]
+name = "owlpath-backend"
+version = "0.1.0"
+description = "OwlPath (鸮径) research backend for dynamic pathogen hypothesis support"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi==0.141.1",
+  "starlette==1.6.0",
+  "uvicorn[standard]==0.52.3",
+  "pydantic==2.13.4",
+  "httpx==0.28.1",
+  "cryptography==50.0.0",
+  "click==8.4.2",
+  "python-dotenv==1.2.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "pip-audit==2.10.1", "setuptools==84.0.0", "pip==26.2.1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

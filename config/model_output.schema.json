@@ -1,0 +1,700 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://owlpath.example.org/schemas/model-output-v1.json",
+  "title": "OwlPath runnable research product output",
+  "description": "成人社区起病疑似急性下呼吸道感染研究版输出；非医疗器械，不得直接指导治疗。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "case_id",
+    "snapshot_id",
+    "decision_time",
+    "snapshot_stage",
+    "run_context",
+    "generated_at",
+    "research_use_only",
+    "not_a_medical_device",
+    "main_state",
+    "scope",
+    "time_gate",
+    "data_quality",
+    "infection_assessment",
+    "pathogen_assessment",
+    "safety",
+    "next_information",
+    "evidence_summary",
+    "versions",
+    "audit",
+    "human_readable_summary",
+    "disclaimer"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0-research"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^RUN-[A-Z0-9-]+$"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^SYN-CASE-[A-Z0-9-]+$"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^SYN-SNAPSHOT-[A-Z0-9-]+$"
+    },
+    "decision_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "snapshot_stage": {
+      "enum": [
+        "initial_assessment",
+        "routine_labs_available",
+        "imaging_available",
+        "pre_microbiology_latest",
+        "optional_protocol_anchor",
+        "post_microbiology_update"
+      ]
+    },
+    "run_context": {
+      "enum": [
+        "pre_microbiology_prediction",
+        "post_microbiology_update",
+        "synthetic_acceptance_test",
+        "approved_retrospective_research"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "research_use_only": {
+      "const": true
+    },
+    "not_a_medical_device": {
+      "const": true
+    },
+    "main_state": {
+      "enum": [
+        "infection_unlikely",
+        "species_set",
+        "category_only",
+        "more_information_needed",
+        "abstain"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reasons",
+        "contract_version"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "eligible",
+            "partial",
+            "out_of_scope"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "contract_version": {
+          "type": "string"
+        }
+      }
+    },
+    "time_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_version",
+        "included_event_ids",
+        "excluded_events",
+        "future_information_leakage_detected"
+      ],
+      "properties": {
+        "rule_version": {
+          "type": "string"
+        },
+        "included_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "excluded_events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "event_id",
+              "reason"
+            ],
+            "properties": {
+              "event_id": {
+                "type": "string"
+              },
+              "reason": {
+                "enum": [
+                  "visible_after_decision_time",
+                  "forbidden_label_leakage",
+                  "invalid_unit",
+                  "untrusted_source",
+                  "duplicate_superseded",
+                  "post_microbiology_only"
+                ]
+              }
+            }
+          }
+        },
+        "future_information_leakage_detected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "data_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grade",
+        "completeness_score",
+        "conflicts",
+        "missing_critical_information"
+      ],
+      "properties": {
+        "grade": {
+          "enum": [
+            "high",
+            "moderate",
+            "low",
+            "unusable"
+          ]
+        },
+        "completeness_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field",
+              "event_ids",
+              "severity",
+              "resolved"
+            ],
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "event_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 2
+              },
+              "severity": {
+                "enum": [
+                  "low",
+                  "moderate",
+                  "high"
+                ]
+              },
+              "resolved": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "missing_critical_information": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "infection_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluated",
+        "infection_probability",
+        "non_infection_probability",
+        "syndrome"
+      ],
+      "properties": {
+        "evaluated": {
+          "type": "boolean"
+        },
+        "infection_probability": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "non_infection_probability": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "syndrome": {
+          "enum": [
+            "suspected_acute_lrti",
+            "non_infectious_mimic_more_likely",
+            "indeterminate",
+            "not_evaluated_out_of_scope"
+          ]
+        }
+      }
+    },
+    "pathogen_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluated",
+        "probability_condition",
+        "category_probabilities",
+        "unknown_probability",
+        "coinfection_probability",
+        "top_k",
+        "prediction_set",
+        "permitted_resolution"
+      ],
+      "properties": {
+        "evaluated": {
+          "type": "boolean"
+        },
+        "probability_condition": {
+          "enum": [
+            "conditional_on_infection",
+            "not_evaluated"
+          ]
+        },
+        "category_probabilities": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "bacterial": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "viral": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "fungal": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "parasitic": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "other_known": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "unknown_probability": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "coinfection_probability": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "top_k": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/candidate"
+          }
+        },
+        "prediction_set": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "permitted_resolution": {
+          "enum": [
+            "species",
+            "category",
+            "none_pending_more_information",
+            "none_infection_unlikely",
+            "none_abstained"
+          ]
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calibration_status",
+        "ood_status",
+        "ood_score",
+        "model_disagreement",
+        "abstained",
+        "reason_codes"
+      ],
+      "properties": {
+        "calibration_status": {
+          "enum": [
+            "valid_for_declared_research_scope",
+            "stale",
+            "not_applicable",
+            "failed"
+          ]
+        },
+        "ood_status": {
+          "enum": [
+            "in_distribution",
+            "borderline",
+            "out_of_distribution",
+            "not_evaluated"
+          ]
+        },
+        "ood_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "model_disagreement": {
+          "enum": [
+            "low",
+            "moderate",
+            "high",
+            "not_evaluated"
+          ]
+        },
+        "abstained": {
+          "type": "boolean"
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "next_information": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/nextInformation"
+        }
+      ]
+    },
+    "evidence_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "supporting",
+        "contradicting"
+      ],
+      "properties": {
+        "supporting": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "contradicting": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        }
+      }
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intended_use",
+        "time_gate",
+        "infection_model",
+        "pathogen_model",
+        "calibrator",
+        "ood_detector",
+        "local_prior",
+        "next_information_rules",
+        "knowledge_base",
+        "report_prompt"
+      ],
+      "properties": {
+        "intended_use": {"type": "string"},
+        "time_gate": {"type": "string"},
+        "infection_model": {"type": "string"},
+        "pathogen_model": {"type": "string"},
+        "calibrator": {"type": "string"},
+        "ood_detector": {"type": "string"},
+        "local_prior": {"type": "string"},
+        "next_information_rules": {"type": "string"},
+        "knowledge_base": {"type": "string"},
+        "report_prompt": {"type": "string"}
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "structured_result_sha256",
+        "tool_call_count",
+        "human_review_required"
+      ],
+      "properties": {
+        "structured_result_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "tool_call_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "human_review_required": {
+          "const": true
+        }
+      }
+    },
+    "human_readable_summary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "disclaimer": {
+      "const": "本结果仅用于竞赛展示和方法学研究，尚未完成临床有效性验证，不是医疗器械，不可作为真实患者的独立诊断、检查医嘱或治疗依据。"
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rank",
+        "pathogen_id",
+        "display_name",
+        "taxonomic_level",
+        "probability",
+        "supporting_fact_ids",
+        "contradicting_fact_ids"
+      ],
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "pathogen_id": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "taxonomic_level": {
+          "enum": [
+            "category",
+            "genus",
+            "species"
+          ]
+        },
+        "probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "supporting_fact_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "contradicting_fact_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "event_ids",
+        "target",
+        "quality",
+        "statement"
+      ],
+      "properties": {
+        "fact_id": {"type": "string"},
+        "event_ids": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "target": {"type": "string"},
+        "quality": {
+          "enum": ["high", "moderate", "low"]
+        },
+        "statement": {"type": "string"}
+      }
+    },
+    "nextInformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "item_id",
+        "display_name",
+        "rationale",
+        "expected_information_gain",
+        "availability",
+        "not_an_order"
+      ],
+      "properties": {
+        "kind": {
+          "enum": ["history_question", "examination", "laboratory_test", "imaging", "specimen_quality_check"]
+        },
+        "item_id": {"type": "string"},
+        "display_name": {"type": "string"},
+        "rationale": {"type": "string"},
+        "expected_information_gain": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "availability": {
+          "enum": ["available", "limited", "unknown"]
+        },
+        "not_an_order": {
+          "const": true
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"main_state": {"const": "abstain"}}},
+      "then": {
+        "properties": {
+          "safety": {"properties": {"abstained": {"const": true}}},
+          "pathogen_assessment": {
+            "properties": {
+              "evaluated": {"const": false},
+              "top_k": {"maxItems": 0},
+              "permitted_resolution": {"const": "none_abstained"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"main_state": {"const": "infection_unlikely"}}},
+      "then": {
+        "properties": {
+          "pathogen_assessment": {
+            "properties": {
+              "evaluated": {"const": false},
+              "top_k": {"maxItems": 0},
+              "permitted_resolution": {"const": "none_infection_unlikely"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"main_state": {"const": "species_set"}}},
+      "then": {
+        "properties": {
+          "pathogen_assessment": {
+            "properties": {
+              "evaluated": {"const": true},
+              "top_k": {"minItems": 1},
+              "permitted_resolution": {"const": "species"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"main_state": {"const": "category_only"}}},
+      "then": {
+        "properties": {
+          "pathogen_assessment": {
+            "properties": {
+              "evaluated": {"const": true},
+              "permitted_resolution": {"const": "category"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"main_state": {"const": "more_information_needed"}}},
+      "then": {
+        "properties": {
+          "next_information": {"$ref": "#/$defs/nextInformation"},
+          "pathogen_assessment": {
+            "properties": {
+              "permitted_resolution": {"const": "none_pending_more_information"}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

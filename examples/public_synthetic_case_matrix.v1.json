@@ -1,0 +1,98 @@
+{
+  "schema_version": "owlpath.synthetic-case-matrix.v1",
+  "matrix_id": "owlpath-public-synthetic-v1",
+  "title_zh": "OwlPath 公开纯合成回归病例矩阵",
+  "synthetic": true,
+  "contains_real_patient_data": false,
+  "purpose": "public_development_regression",
+  "source_provenance": "Designed from scratch for software testing. No EHR, case report, database row, or real individual was used as a source.",
+  "notice_zh": "本文件中的人物、时间、数值和场景均由设计者从零构造，未引用EHR、病例报告、数据库记录或任何真实个体，不可用于临床决策。",
+  "notice_en": "Every person, time point, value, and scenario in this file was invented from scratch. No EHR, case report, database record, or real individual was used. Not for clinical use.",
+  "runner_contract": {
+    "api_mode": "development",
+    "model_input_field": "cases[].text",
+    "private_oracle_field": "cases[].private_oracle",
+    "never_send_to_model": [
+      "cases[].expected_any_of",
+      "cases[].private_oracle",
+      "cases[].expected_behavior"
+    ],
+    "required_result_status": [
+      "completed",
+      "completed_with_warnings"
+    ],
+    "required_top5_count": 5,
+    "required_top5_unique": true,
+    "required_top5_taxonomic_specificity": "species_or_explicit_species_complex_or_explicit_virus_type"
+  },
+  "cases": [
+    {
+      "synthetic": true,
+      "is_synthetic": true,
+      "contains_real_patient_data": false,
+      "case_id": "PUBLIC-SYN-RESP-001",
+      "title": "从零构造的社区起病肺部感染测试",
+      "text": "【公开纯合成测试：由设计者从零编写，未引用任何真实病例】48岁女性，无身份信息。在虚构教学日的急诊场景中，出现发热、干咳和右侧胸痛三天，近六小时气短。体温39.0℃，呼吸频26次/分，室内空气SpO2 90%。WBC 16.0×10^9/L，CRP 160 mg/L，PCT 4.0 ng/mL，Na 132 mmol/L。胸部CT显示右下肺叶节段性实变和少量胸腔积液。未近期住院，未使用广谱抗菌药，家庭成员无类似症状。已在用药前送两套血培养和痰培养，结果待回；尚未进行呼吸道多重核酸检测。",
+      "core_syndromes": [
+        "社区获得性下呼吸道感染",
+        "低氧性呼吸功能障碍"
+      ],
+      "required_fragments": [
+        "Na 132 mmol/L",
+        "右下肺叶节段性实变",
+        "家庭成员无类似症状",
+        "用药前送两套血培养",
+        "呼吸道多重核酸检测"
+      ],
+      "expected_behavior": [
+        "Top-5必须是五个具体且唯一的命名病原体",
+        "不得把待回培养改写为已证实结果"
+      ],
+      "private_oracle": {
+        "do_not_send_to_model": true,
+        "minimum_expected_set_overlap": 1
+      },
+      "expected_any_of": [
+        "Streptococcus pneumoniae",
+        "Legionella pneumophila",
+        "Haemophilus influenzae",
+        "Influenza A virus",
+        "Staphylococcus aureus"
+      ]
+    },
+    {
+      "synthetic": true,
+      "is_synthetic": true,
+      "contains_real_patient_data": false,
+      "case_id": "PUBLIC-SYN-URINARY-002",
+      "title": "从零构造的梗阻性尿路感染测试",
+      "text": "【公开纯合成测试：由设计者从零编写，未引用任何真实病例】63岁男性，无身份信息。在虚构教学日的急诊场景中，左侧腰痛、尿频和尿痛两天，当日出现寒战。体温39.0℃，心率116次/分，血压98/60 mmHg，左肾区叩击痛阳性。WBC 15.0×10^9/L，CRP 150 mg/L，PCT 5.0 ng/mL，Cr 130 μmol/L，乳酸2.5 mmol/L。尿检白细胞显著增多，亚硝酸盐阳性。腹部CT显示左输尿管上段6 mm结石，伴左肾积水和肾周脂肪间隙模糊。近半年无住院、导尿或旅行史，近三个月未使用抗菌药。尿培养和两套血培养已送，结果待回。",
+      "core_syndromes": [
+        "梗阻性上尿路感染",
+        "疑似尿源性血流感染"
+      ],
+      "required_fragments": [
+        "亚硝酸盐阳性",
+        "左输尿管上段6 mm结石",
+        "左肾积水",
+        "近三个月未使用抗菌药",
+        "尿培养和两套血培养已送"
+      ],
+      "expected_behavior": [
+        "Top-5必须是五个具体且唯一的命名病原体",
+        "须保留梗阻和培养待回这两类信息"
+      ],
+      "private_oracle": {
+        "do_not_send_to_model": true,
+        "minimum_expected_set_overlap": 1
+      },
+      "expected_any_of": [
+        "Escherichia coli",
+        "Klebsiella pneumoniae",
+        "Proteus mirabilis",
+        "Pseudomonas aeruginosa",
+        "Enterococcus faecalis"
+      ]
+    }
+  ]
+}

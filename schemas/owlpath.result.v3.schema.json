@@ -1,0 +1,853 @@
+{
+  "$defs": {
+    "DevelopmentAgentObservationSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "$ref": "#/$defs/DevelopmentAgentRole"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "completed_with_warnings",
+            "failed",
+            "skipped"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "summary_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "warning_codes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Warning Codes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "role",
+        "status",
+        "summary_i18n"
+      ],
+      "title": "DevelopmentAgentObservationSummary",
+      "type": "object"
+    },
+    "DevelopmentAgentRole": {
+      "enum": [
+        "infectious_diseases",
+        "critical_care_emergency",
+        "clinical_epidemiology",
+        "laboratory_medicine",
+        "clinical_microbiology_culture",
+        "radiology",
+        "pulmonology",
+        "gastroenterology",
+        "hepatobiliary_pancreatic",
+        "urology",
+        "nephrology",
+        "neurology_neuroinfection",
+        "cardiology_endocarditis",
+        "hematology_immunology",
+        "transplant_infectious_diseases",
+        "surgery_source_control",
+        "orthopedics_bone_joint",
+        "dermatology_soft_tissue",
+        "obstetrics_gynecology",
+        "pediatrics_neonatology",
+        "tropical_medicine_parasitology",
+        "medical_mycology",
+        "clinical_virology_molecular",
+        "antimicrobial_stewardship",
+        "healthcare_device_infection",
+        "timeline_course",
+        "host_susceptibility",
+        "syndrome_localization",
+        "exposure_one_health",
+        "lab_pathophysiology",
+        "organ_severity",
+        "imaging_dissemination",
+        "microbiology_treatment",
+        "neuroinfection",
+        "immunocompromised_opportunistic",
+        "travel_zoonotic",
+        "healthcare_device_amr",
+        "timeline_host",
+        "syndrome_site",
+        "exposure_epidemiology",
+        "laboratory_organ_injury",
+        "imaging_microbiology_treatment",
+        "evidence_retrieval",
+        "pathogen_synthesis",
+        "independent_critic"
+      ],
+      "title": "DevelopmentAgentRole",
+      "type": "string"
+    },
+    "DevelopmentCategoryOverview": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/DevelopmentPathogenCategory"
+        },
+        "model_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Model Score",
+          "type": "number"
+        },
+        "rationale_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        }
+      },
+      "required": [
+        "category",
+        "model_score",
+        "rationale_i18n"
+      ],
+      "title": "DevelopmentCategoryOverview",
+      "type": "object"
+    },
+    "DevelopmentCoinfectionHypothesis": {
+      "additionalProperties": false,
+      "properties": {
+        "model_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Model Score",
+          "type": "number"
+        },
+        "pathogen_latin_names": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 2,
+          "title": "Pathogen Latin Names",
+          "type": "array"
+        },
+        "rationale_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        }
+      },
+      "required": [
+        "pathogen_latin_names",
+        "model_score",
+        "rationale_i18n"
+      ],
+      "title": "DevelopmentCoinfectionHypothesis",
+      "type": "object"
+    },
+    "DevelopmentConcretePathogen": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_latin_name": {
+          "maxLength": 240,
+          "minLength": 1,
+          "title": "Canonical Latin Name",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/DevelopmentPathogenCategory"
+        },
+        "main_uncertainty_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "model_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Model Score",
+          "type": "number"
+        },
+        "name_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "ncbi_taxonomy_id": {
+          "exclusiveMinimum": 0,
+          "title": "Ncbi Taxonomy Id",
+          "type": "integer"
+        },
+        "ncbi_taxonomy_rank": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ncbi Taxonomy Rank"
+        },
+        "opposing_evidence": {
+          "items": {
+            "$ref": "#/$defs/DevelopmentEvidenceLink"
+          },
+          "maxItems": 20,
+          "title": "Opposing Evidence",
+          "type": "array"
+        },
+        "proposed_by_agent_roles": {
+          "items": {
+            "$ref": "#/$defs/DevelopmentSpecialistRole"
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "title": "Proposed By Agent Roles",
+          "type": "array"
+        },
+        "rank": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "supporting_evidence": {
+          "items": {
+            "$ref": "#/$defs/DevelopmentEvidenceLink"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Supporting Evidence",
+          "type": "array"
+        },
+        "taxonomic_rank": {
+          "enum": [
+            "species",
+            "species_complex",
+            "virus_type"
+          ],
+          "title": "Taxonomic Rank",
+          "type": "string"
+        },
+        "taxonomy_resolution_reason_code": {
+          "default": "legacy_reason_unavailable",
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[a-z0-9_]+$",
+          "title": "Taxonomy Resolution Reason Code",
+          "type": "string"
+        },
+        "taxonomy_resolution_status": {
+          "enum": [
+            "resolved",
+            "cache_resolved"
+          ],
+          "title": "Taxonomy Resolution Status",
+          "type": "string"
+        },
+        "why_ranked_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        }
+      },
+      "required": [
+        "rank",
+        "canonical_latin_name",
+        "name_i18n",
+        "taxonomic_rank",
+        "category",
+        "ncbi_taxonomy_id",
+        "taxonomy_resolution_status",
+        "model_score",
+        "supporting_evidence",
+        "why_ranked_i18n",
+        "main_uncertainty_i18n",
+        "proposed_by_agent_roles"
+      ],
+      "title": "DevelopmentConcretePathogen",
+      "type": "object"
+    },
+    "DevelopmentContractIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_rank": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Candidate Rank"
+        },
+        "code": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Code",
+          "type": "string"
+        },
+        "field": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "message": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "DevelopmentContractIssue",
+      "type": "object"
+    },
+    "DevelopmentCriticIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_ranks": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 10,
+          "title": "Candidate Ranks",
+          "type": "array"
+        },
+        "code": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Code",
+          "type": "string"
+        },
+        "message_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "severity": {
+          "enum": [
+            "warning",
+            "error"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source_fragment_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 40,
+          "title": "Source Fragment Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message_i18n"
+      ],
+      "title": "DevelopmentCriticIssue",
+      "type": "object"
+    },
+    "DevelopmentCriticResult": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "title": "Accepted",
+          "type": "boolean"
+        },
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/DevelopmentCriticIssue"
+          },
+          "maxItems": 40,
+          "title": "Issues",
+          "type": "array"
+        },
+        "required_changes_i18n": {
+          "items": {
+            "$ref": "#/$defs/LocalizedText"
+          },
+          "maxItems": 30,
+          "title": "Required Changes I18N",
+          "type": "array"
+        },
+        "review_summary_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "revision_required": {
+          "title": "Revision Required",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": "owlpath.critic.v1",
+          "default": "owlpath.critic.v1",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "accepted",
+        "revision_required",
+        "review_summary_i18n"
+      ],
+      "title": "DevelopmentCriticResult",
+      "type": "object"
+    },
+    "DevelopmentEvidenceLink": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Evidence Source Ids",
+          "type": "array"
+        },
+        "source_fragment_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 40,
+          "title": "Source Fragment Ids",
+          "type": "array"
+        },
+        "statement_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        }
+      },
+      "required": [
+        "statement_i18n"
+      ],
+      "title": "DevelopmentEvidenceLink",
+      "type": "object"
+    },
+    "DevelopmentEvidenceSource": {
+      "additionalProperties": false,
+      "properties": {
+        "citation": {
+          "anyOf": [
+            {
+              "maxLength": 1200,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Citation"
+        },
+        "evidence_source_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Evidence Source Id",
+          "type": "string"
+        },
+        "relevance_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "source_kind": {
+          "enum": [
+            "europe_pmc",
+            "pubmed",
+            "who",
+            "cdc",
+            "ecdc",
+            "professional_society",
+            "journal",
+            "other"
+          ],
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "maxLength": 1200,
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_source_id",
+        "title",
+        "url",
+        "source_kind",
+        "relevance_i18n"
+      ],
+      "title": "DevelopmentEvidenceSource",
+      "type": "object"
+    },
+    "DevelopmentNextTest": {
+      "additionalProperties": false,
+      "properties": {
+        "model_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Model Score",
+          "type": "number"
+        },
+        "rationale_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "source_fragment_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 40,
+          "title": "Source Fragment Ids",
+          "type": "array"
+        },
+        "target_pathogen_latin_names": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Target Pathogen Latin Names",
+          "type": "array"
+        },
+        "test_code": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Test Code",
+          "type": "string"
+        },
+        "test_name_i18n": {
+          "$ref": "#/$defs/LocalizedText"
+        }
+      },
+      "required": [
+        "test_code",
+        "test_name_i18n",
+        "rationale_i18n",
+        "model_score"
+      ],
+      "title": "DevelopmentNextTest",
+      "type": "object"
+    },
+    "DevelopmentPathogenCategory": {
+      "enum": [
+        "bacteria",
+        "virus",
+        "fungus",
+        "parasite",
+        "other"
+      ],
+      "title": "DevelopmentPathogenCategory",
+      "type": "string"
+    },
+    "DevelopmentReviewSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "title": "Accepted",
+          "type": "boolean"
+        },
+        "critic": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DevelopmentCriticResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "deterministic_validation": {
+          "$ref": "#/$defs/DevelopmentTop5Validation"
+        },
+        "revision_count": {
+          "default": 0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Revision Count",
+          "type": "integer"
+        },
+        "status": {
+          "default": "not_reviewed",
+          "enum": [
+            "critic_accepted",
+            "revision_completed_not_re_reviewed",
+            "critic_changes_not_closed",
+            "critic_unavailable",
+            "technical_failure",
+            "not_reviewed"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "accepted",
+        "deterministic_validation"
+      ],
+      "title": "DevelopmentReviewSummary",
+      "type": "object"
+    },
+    "DevelopmentSpecialistRole": {
+      "description": "Versioned specialist roles used by development execution graphs.\n\nThe first twenty-five values are the v3 core consultation team and dynamic\nspecialty registry.  Older v2/v1 wire values are retained solely so\npersisted runs and provider fixtures remain readable; new execution\nmanifests must not schedule those legacy roles.",
+      "enum": [
+        "infectious_diseases",
+        "critical_care_emergency",
+        "clinical_epidemiology",
+        "laboratory_medicine",
+        "clinical_microbiology_culture",
+        "radiology",
+        "pulmonology",
+        "gastroenterology",
+        "hepatobiliary_pancreatic",
+        "urology",
+        "nephrology",
+        "neurology_neuroinfection",
+        "cardiology_endocarditis",
+        "hematology_immunology",
+        "transplant_infectious_diseases",
+        "surgery_source_control",
+        "orthopedics_bone_joint",
+        "dermatology_soft_tissue",
+        "obstetrics_gynecology",
+        "pediatrics_neonatology",
+        "tropical_medicine_parasitology",
+        "medical_mycology",
+        "clinical_virology_molecular",
+        "antimicrobial_stewardship",
+        "healthcare_device_infection",
+        "timeline_course",
+        "host_susceptibility",
+        "syndrome_localization",
+        "exposure_one_health",
+        "lab_pathophysiology",
+        "organ_severity",
+        "imaging_dissemination",
+        "microbiology_treatment",
+        "neuroinfection",
+        "immunocompromised_opportunistic",
+        "travel_zoonotic",
+        "healthcare_device_amr",
+        "timeline_host",
+        "syndrome_site",
+        "exposure_epidemiology",
+        "laboratory_organ_injury",
+        "imaging_microbiology_treatment"
+      ],
+      "title": "DevelopmentSpecialistRole",
+      "type": "string"
+    },
+    "DevelopmentTop5Validation": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt_origin": {
+          "default": "unspecified",
+          "enum": [
+            "unspecified",
+            "pipeline_technical_failure",
+            "synthesis_draft",
+            "revision_draft",
+            "synthesis_failure_agent_pool_fallback",
+            "post_revision_agent_pool_fallback"
+          ],
+          "title": "Attempt Origin",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/DevelopmentContractIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "valid": {
+          "title": "Valid",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "valid"
+      ],
+      "title": "DevelopmentTop5Validation",
+      "type": "object"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "A bounded bilingual string with an explicit translation status.\n\nNew v2 contracts use the object form.  Accepting a plain string here is a\ndeliberate read-compatibility bridge for v1/provider payloads; it is\nclassified as Chinese when it contains a CJK ideograph and English\notherwise.  The generated provider schema still advertises the object\nform, so new model calls produce both languages in the same response.",
+      "properties": {
+        "en": {
+          "anyOf": [
+            {
+              "maxLength": 3000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "En"
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "partial"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "zh_cn": {
+          "anyOf": [
+            {
+              "maxLength": 3000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Zh Cn"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "urn:owlpath:schema:result:v3",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Generated from backend/app/models.py::DevelopmentResultV3. Runtime Pydantic and deterministic validators remain authoritative for cross-field and semantic Top-5 requirements.",
+  "properties": {
+    "agent_observations": {
+      "items": {
+        "$ref": "#/$defs/DevelopmentAgentObservationSummary"
+      },
+      "maxItems": 20,
+      "title": "Agent Observations",
+      "type": "array"
+    },
+    "category_overview": {
+      "items": {
+        "$ref": "#/$defs/DevelopmentCategoryOverview"
+      },
+      "maxItems": 5,
+      "title": "Category Overview",
+      "type": "array"
+    },
+    "coinfection_hypotheses": {
+      "items": {
+        "$ref": "#/$defs/DevelopmentCoinfectionHypothesis"
+      },
+      "maxItems": 10,
+      "title": "Coinfection Hypotheses",
+      "type": "array"
+    },
+    "concrete_pathogens": {
+      "items": {
+        "$ref": "#/$defs/DevelopmentConcretePathogen"
+      },
+      "maxItems": 5,
+      "title": "Concrete Pathogens",
+      "type": "array"
+    },
+    "evidence_sources": {
+      "items": {
+        "$ref": "#/$defs/DevelopmentEvidenceSource"
+      },
+      "maxItems": 100,
+      "title": "Evidence Sources",
+      "type": "array"
+    },
+    "fallback_mode": {
+      "default": "none",
+      "enum": [
+        "none",
+        "agent_pool_fallback",
+        "revision_rejected_retained_prior_valid_draft"
+      ],
+      "title": "Fallback Mode",
+      "type": "string"
+    },
+    "next_tests": {
+      "items": {
+        "$ref": "#/$defs/DevelopmentNextTest"
+      },
+      "maxItems": 10,
+      "title": "Next Tests",
+      "type": "array"
+    },
+    "result_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[a-fA-F0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Result Sha256"
+    },
+    "review": {
+      "$ref": "#/$defs/DevelopmentReviewSummary"
+    },
+    "schema_version": {
+      "const": "owlpath.result.v3",
+      "default": "owlpath.result.v3",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "completed_with_warnings",
+        "technical_failure"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary_i18n": {
+      "$ref": "#/$defs/LocalizedText"
+    },
+    "unknown_score": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Unknown Score",
+      "type": "number"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "status",
+    "summary_i18n",
+    "unknown_score",
+    "review"
+  ],
+  "title": "OwlPath Development Result v3",
+  "type": "object"
+}

@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            backend/requirements.lock
+            backend/requirements-dev.txt
+      - run: python -m pip install --upgrade pip==26.2.1
+      - run: python -m pip install -r backend/requirements.lock
+      - run: python -m pip install -r backend/requirements-dev.txt
+      - run: python -m pip_audit -r backend/requirements.lock
+      - run: python -m pytest -q
+        working-directory: backend
+      - run: python examples/validate_examples.py
+      - run: python scripts/synthetic_regression.py --self-test
+      - run: python scripts/synthetic_regression.py --fixture examples/public_synthetic_case_matrix.v1.json --dry-run
+      - run: python scripts/repository_audit.py --ci
+      - run: python prompts/verify_prompt_registry.py
+      - run: python schemas/export_public_schemas.py --check
+      - run: python schemas/verify_public_contracts.py
+      - run: python scripts/enrich_python_sbom_licenses.py
+      - run: python scripts/build_release_manifest.py --check
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.18.0"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit --no-fund
+        working-directory: frontend
+      - run: npm test
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
