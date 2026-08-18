@@ -55,6 +55,24 @@
 | 04 总诊与审稿 | 排序候选，并主动找遗漏和反证 |
 | 05 输出与验证 | 给出 Top-5，再用后续结果评分 |
 
+### 项目蓝图｜System Blueprint
+
+```mermaid
+flowchart LR
+    U["研究者 / 前端控制台"] -->|"JSON · SSE"| A["FastAPI 研究 API"]
+    A -->|"事件流"| U
+    A --> D[("SQLite<br/>运行 / 轨迹 / 密钥")]
+    A -->|"202 + 后台运行"| E["RunEngine 编排器"]
+    E --> X["AI 专家池<br/>5 核心 + 最多 6 动态"]
+    E --> B["证据板与检索规划"]
+    B --> S["外部证据<br/>Europe PMC · PubMed · WHO DON"]
+    E --> T["NCBI Taxonomy<br/>Top-5 确定性合同"]
+    E --> R["独立审稿 Agent"]
+    X --> P["Provider 适配层<br/>OpenAI · Anthropic · Gemini · 兼容 API · Ollama"]
+    R -->|"revision_required"| X
+    E -->|"completed / failed"| A
+```
+
 ---
 
 <a id="research-question"></a>
@@ -111,6 +129,102 @@ NCBI Taxonomy 解析 + 确定性 Top-5 合同
 ```
 
 开发路径使用 `owlpath.result.v3`、`owlpath.execution-graph.v4` 和 `owlpath.trace.v2`。一次运行选择 **5–11 个临床专家角色**；专科阶段最多 **12 次 Provider 请求**；全程真实网络请求上限 **18 次**；开发运行硬截止 **420 秒**。
+
+### 证据与数据流｜Evidence & Data Flow
+
+```mermaid
+flowchart TD
+    S0["原始病例全文"] --> S1["稳定来源片段"]
+    S1 --> S2["冻结输入快照"]
+    S2 --> S3["结构化证据板<br/>阳性 / 阴性 / 待回 / 矛盾"]
+    S3 --> S4["检索规划（去标识化概念）"]
+    S4 --> S5["文献 / 公共卫生线索"]
+    S5 --> S6["证据核验"]
+    S6 --> S7["病原体总诊 Agent"]
+    S7 --> S8["NCBI Taxonomy + Top-5 合同"]
+    S8 --> S9["独立审稿"]
+    S9 -->|"必要时修订一次"| S7
+    S9 --> S10["双语结果 + 执行图 + 哈希完整性"]
+    S10 --> S11["离线评分 Top-1 / Top-3 / Top-5"]
+```
+
+### 专家团队拓扑｜Expert Team Topology
+
+```mermaid
+flowchart LR
+    Router["复杂度 / 专病路由"] --> Core
+    Router --> Dynamic
+    subgraph Core["固定核心专家 · 5 位"]
+      C1["感染性疾病综合"]
+      C2["重症急诊"]
+      C3["临床流行病学"]
+      C4["检验医学"]
+      C5["临床微生物"]
+    end
+    subgraph Dynamic["动态专科注册表 · 20 位"]
+      D1["器官专科组<br/>呼吸 · 消化 · 泌尿 · 神经<br/>心内 · 骨科 · 皮肤 · 外科源控制"]
+      D2["宿主与暴露组<br/>移植 · 血液免疫 · 妇产<br/>儿科 · 热带病"]
+      D3["病原与诊疗组<br/>真菌 · 病毒分子<br/>抗菌药管理 · 装置感染"]
+    end
+    Core --> Pool["证据委员会去重"]
+    Dynamic -->|"最多入选 6 位"| Pool
+```
+
+### 一次运行的时序｜Run Sequence
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as 研究者/前端
+    participant A as API
+    participant E as RunEngine
+    participant X as AI 专家
+    participant S as 检索器
+    participant T as Taxonomy/合同
+    participant R as 独立审稿
+    participant D as SQLite
+
+    U->>A: POST /api/development/runs（24h 快照）
+    A->>D: 冻结快照 + 哈希
+    A->>E: 后台启动 run
+    A-->>U: 202 Accepted + run_id
+    loop 运行期间
+      U->>A: GET /runs/{run_id}/events
+      A-->>U: SSE 事件流
+    end
+    E->>E: 复杂度/专病路由
+    E->>X: 5 核心 + 最多 6 动态专家
+    X-->>E: 结构化意见（候选 + 证据）
+    E->>E: 证据板去重
+    E->>S: 去标识化检索概念
+    S-->>E: 文献 / 公共卫生线索
+    E->>X: 病原体总诊
+    X-->>E: Top-5 草稿
+    E->>T: NCBI Taxonomy + Top-5 合同
+    T-->>E: 通过 / 技术失败
+    E->>R: 独立审稿
+    alt 审稿通过
+      R-->>E: accepted
+    else 必要修订
+      R-->>E: revision_required
+      E->>X: 修订一次
+      X-->>E: 修订稿
+    end
+    E->>D: 结果 + 执行图 + 轨迹
+    E-->>U: completed / failed
+```
+
+### 运行状态机｜Run State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> queued: POST /api/development/runs
+    queued --> running: RunEngine 领取
+    running --> completed: 合同通过 + 结果落库
+    running --> failed: 技术失败 / 超时 / 预算耗尽
+    completed --> [*]
+    failed --> [*]
+```
 
 **公平原则**：OwlPath、5 个单独 LLM 和 3 名医生看到同一份 24 小时病例快照；未来结果只负责判分，不能提前进入任何一方的答案。
 
@@ -301,6 +415,40 @@ python3 scripts/repository_audit.py
 | 了解安全与报告方式 | [安全政策](SECURITY.md) |
 | 阅读医学用途限制 | [医学免责声明](MEDICAL_DISCLAIMER.md) |
 | 了解后端运行细节 | [后端与运行说明](backend/README.md) |
+
+### 仓库模块蓝图｜Repository Module Blueprint
+
+```mermaid
+flowchart LR
+    subgraph FE["frontend/ 研究控制台"]
+      UI["React + TypeScript SPA"]
+    end
+    subgraph BE["backend/app"]
+      API["api.py · REST/SSE"]
+      ENG["engine.py · 编排"]
+      PRO["providers.py · 模型适配"]
+      RET["medical_retrieval.py · 检索"]
+      DB["db.py · SQLite"]
+      SEC["security.py · 加密密钥"]
+      NET["network_security.py · 出站校验"]
+    end
+    subgraph DATA["data/"]
+      D[("owlpath.db")]
+    end
+    subgraph CFG["config · prompts · schemas"]
+      C["Agent 注册 / 术语 / 合同"]
+    end
+    UI --> API
+    API --> ENG
+    ENG --> PRO
+    ENG --> RET
+    ENG --> DB
+    ENG --> C
+    DB --> SEC
+    PRO --> NET
+    RET --> NET
+    DB --> D
+```
 
 ```text
 backend/      FastAPI、Provider 适配、编排、检索、术语和持久化
