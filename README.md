@@ -55,22 +55,21 @@
 | 04 总诊与审稿 | 排序候选，并主动找遗漏和反证 |
 | 05 输出与验证 | 给出 Top-5，再用后续结果评分 |
 
-### 项目蓝图｜System Blueprint
+### 临床时间窗｜Clinical Time Window
 
 ```mermaid
-flowchart LR
-    U["研究者 / 前端控制台"] -->|"JSON · SSE"| A["FastAPI 研究 API"]
-    A -->|"事件流"| U
-    A --> D[("SQLite<br/>运行 / 轨迹 / 密钥")]
-    A -->|"202 + 后台运行"| E["RunEngine 编排器"]
-    E --> X["AI 专家池<br/>5 核心 + 最多 6 动态"]
-    E --> B["证据板与检索规划"]
-    B --> S["外部证据<br/>Europe PMC · PubMed · WHO DON"]
-    E --> T["NCBI Taxonomy<br/>Top-5 确定性合同"]
-    E --> R["独立审稿 Agent"]
-    X --> P["Provider 适配层<br/>OpenAI · Anthropic · Gemini · 兼容 API · Ollama"]
-    R -->|"revision_required"| X
-    E -->|"completed / failed"| A
+timeline
+    title 重症感染：治疗决策 vs 病原学答案
+    section T0 · 入 ICU
+        启动经验治疗 : 采集血培养、病原学与影像
+        冻结决策时点 : 只使用 24 小时内可见信息
+    section T0 → T+24h
+        病史与查体 : 暴露史、宿主因素与感染部位
+        化验与影像 : 炎症指标、器官功能与影像线索
+        微生物学 : 涂片、培养与核酸的待回状态
+    section T+24h 之后
+        培养与分子检测逐步回报 : 可能数小时至数天
+        最终病原学诊断 : 仅用于离线评分，绝不进入预测
 ```
 
 ---
@@ -130,100 +129,102 @@ NCBI Taxonomy 解析 + 确定性 Top-5 合同
 
 开发路径使用 `owlpath.result.v3`、`owlpath.execution-graph.v4` 和 `owlpath.trace.v2`。一次运行选择 **5–11 个临床专家角色**；专科阶段最多 **12 次 Provider 请求**；全程真实网络请求上限 **18 次**；开发运行硬截止 **420 秒**。
 
-### 证据与数据流｜Evidence & Data Flow
+### 鉴别诊断路径｜Differential Diagnosis Path
 
 ```mermaid
 flowchart TD
-    S0["原始病例全文"] --> S1["稳定来源片段"]
-    S1 --> S2["冻结输入快照"]
-    S2 --> S3["结构化证据板<br/>阳性 / 阴性 / 待回 / 矛盾"]
-    S3 --> S4["检索规划（去标识化概念）"]
-    S4 --> S5["文献 / 公共卫生线索"]
-    S5 --> S6["证据核验"]
-    S6 --> S7["病原体总诊 Agent"]
-    S7 --> S8["NCBI Taxonomy + Top-5 合同"]
-    S8 --> S9["独立审稿"]
-    S9 -->|"必要时修订一次"| S7
-    S9 --> S10["双语结果 + 执行图 + 哈希完整性"]
-    S10 --> S11["离线评分 Top-1 / Top-3 / Top-5"]
+    ICU["患者首次进入 ICU"] --> Suspect{临床疑似感染？}
+    Suspect -- "否" --> Non["按非感染路径处理<br/>（系统边界之外）"]
+    Suspect -- "是" --> Syndrome{主要综合征定位}
+    Syndrome --> Resp["呼吸道感染"]
+    Syndrome --> Blood["血流感染"]
+    Syndrome --> CNS["中枢神经系统感染"]
+    Syndrome --> Urine["泌尿系感染"]
+    Syndrome --> Other["其他部位 / 未定位"]
+    Resp --> A1["感染科 · 重症 · 呼吸 · 影像"]
+    Blood --> A2["感染科 · 微生物 · 心内 · 装置"]
+    CNS --> A3["神经感染 · 微生物 · 影像"]
+    Urine --> A4["泌尿 · 检验 · 微生物"]
+    Other --> A5["流行病学 · 移植 · 热带病等"]
+    A1 --> Board["结构化证据板<br/>阳性 / 阴性 / 待回 / 矛盾"]
+    A2 --> Board
+    A3 --> Board
+    A4 --> Board
+    A5 --> Board
+    Board --> Search["去标识化概念检索<br/>文献与公共卫生线索"]
+    Search --> Top5["5 个具体病原体候选<br/>支持与反对证据 + 下一项检查"]
 ```
 
-### 专家团队拓扑｜Expert Team Topology
+### 24 小时证据地图｜24-Hour Evidence Map
 
 ```mermaid
 flowchart LR
-    Router["复杂度 / 专病路由"] --> Core
-    Router --> Dynamic
-    subgraph Core["固定核心专家 · 5 位"]
-      C1["感染性疾病综合"]
-      C2["重症急诊"]
-      C3["临床流行病学"]
-      C4["检验医学"]
-      C5["临床微生物"]
+    subgraph SRC["24 小时病例快照"]
+        H["病史与时间线"]
+        L["化验"]
+        I["影像"]
+        M["微生物 / 待回"]
+        E["暴露与流行病学"]
+        T["已用抗感染治疗"]
     end
-    subgraph Dynamic["动态专科注册表 · 20 位"]
-      D1["器官专科组<br/>呼吸 · 消化 · 泌尿 · 神经<br/>心内 · 骨科 · 皮肤 · 外科源控制"]
-      D2["宿主与暴露组<br/>移植 · 血液免疫 · 妇产<br/>儿科 · 热带病"]
-      D3["病原与诊疗组<br/>真菌 · 病毒分子<br/>抗菌药管理 · 装置感染"]
+    subgraph VER["证据状态"]
+        P["阳性证据"]
+        N["阴性证据"]
+        W["待回 / 未做"]
+        C["矛盾线索"]
     end
-    Core --> Pool["证据委员会去重"]
-    Dynamic -->|"最多入选 6 位"| Pool
+    subgraph OUT["临床可解释输出"]
+        SUP["支持候选病原体"]
+        AGA["反对 / 不确定"]
+        NEXT["下一项优先检查"]
+        MISS["覆盖不足告警"]
+    end
+    H --> P
+    H --> N
+    L --> P
+    L --> N
+    I --> P
+    I --> N
+    M --> W
+    M --> C
+    E --> P
+    E --> N
+    T --> C
+    P --> SUP
+    N --> AGA
+    W --> MISS
+    C --> AGA
+    AGA --> NEXT
+    MISS --> NEXT
 ```
 
-### 一次运行的时序｜Run Sequence
+### Top-5 生成漏斗｜Top-5 Generation Funnel
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    participant U as 研究者/前端
-    participant A as API
-    participant E as RunEngine
-    participant X as AI 专家
-    participant S as 检索器
-    participant T as Taxonomy/合同
-    participant R as 独立审稿
-    participant D as SQLite
-
-    U->>A: POST /api/development/runs（24h 快照）
-    A->>D: 冻结快照 + 哈希
-    A->>E: 后台启动 run
-    A-->>U: 202 Accepted + run_id
-    loop 运行期间
-      U->>A: GET /runs/{run_id}/events
-      A-->>U: SSE 事件流
-    end
-    E->>E: 复杂度/专病路由
-    E->>X: 5 核心 + 最多 6 动态专家
-    X-->>E: 结构化意见（候选 + 证据）
-    E->>E: 证据板去重
-    E->>S: 去标识化检索概念
-    S-->>E: 文献 / 公共卫生线索
-    E->>X: 病原体总诊
-    X-->>E: Top-5 草稿
-    E->>T: NCBI Taxonomy + Top-5 合同
-    T-->>E: 通过 / 技术失败
-    E->>R: 独立审稿
-    alt 审稿通过
-      R-->>E: accepted
-    else 必要修订
-      R-->>E: revision_required
-      E->>X: 修订一次
-      X-->>E: 修订稿
-    end
-    E->>D: 结果 + 执行图 + 轨迹
-    E-->>U: completed / failed
+flowchart TD
+    U[">1,400 种人类病原体<br/>目录仍在更新"] --> S["综合征 + 宿主 + 暴露先验"]
+    S --> C["AI 专家候选池<br/>具体到种 / 种复合体 / 病毒型"]
+    C --> V["证据核验<br/>时间边界 + 证据极性 + 实体归属"]
+    V --> Top["恰好 5 个可追溯候选"]
+    Top --> Test["下一项优先检查<br/>鉴别 Top-2 + 覆盖空洞"]
+    Test -.->|"24 小时后真值"| Score["Top-1 / Top-3 / Top-5 离线评分"]
 ```
 
-### 运行状态机｜Run State Machine
+### 研究设计与验证｜Study Design & Validation
 
 ```mermaid
-stateDiagram-v2
-    [*] --> queued: POST /api/development/runs
-    queued --> running: RunEngine 领取
-    running --> completed: 合同通过 + 结果落库
-    running --> failed: 技术失败 / 超时 / 预算耗尽
-    completed --> [*]
-    failed --> [*]
+flowchart LR
+    P0["同一 50 例<br/>入 ICU 24 小时快照"] --> A["OwlPath"]
+    P0 --> B["5 个单独 LLM"]
+    P0 --> C["3 名医生"]
+    A --> G["各给出 5 个候选"]
+    B --> G
+    C --> G
+    G --> T["后续微生物结果<br/>+ 独立专家判定"]
+    T --> S["同病例配对评分<br/>Top-1 / Top-3 / Top-5"]
+    S --> R{"最低成功？"}
+    R -- "是" --> OK["进入 DR.ECC 时间验证"]
+    R -- "否" --> RE["重新定位 / 缩小适用范围 / 重新校准"]
 ```
 
 **公平原则**：OwlPath、5 个单独 LLM 和 3 名医生看到同一份 24 小时病例快照；未来结果只负责判分，不能提前进入任何一方的答案。
@@ -415,40 +416,6 @@ python3 scripts/repository_audit.py
 | 了解安全与报告方式 | [安全政策](SECURITY.md) |
 | 阅读医学用途限制 | [医学免责声明](MEDICAL_DISCLAIMER.md) |
 | 了解后端运行细节 | [后端与运行说明](backend/README.md) |
-
-### 仓库模块蓝图｜Repository Module Blueprint
-
-```mermaid
-flowchart LR
-    subgraph FE["frontend/ 研究控制台"]
-      UI["React + TypeScript SPA"]
-    end
-    subgraph BE["backend/app"]
-      API["api.py · REST/SSE"]
-      ENG["engine.py · 编排"]
-      PRO["providers.py · 模型适配"]
-      RET["medical_retrieval.py · 检索"]
-      DB["db.py · SQLite"]
-      SEC["security.py · 加密密钥"]
-      NET["network_security.py · 出站校验"]
-    end
-    subgraph DATA["data/"]
-      D[("owlpath.db")]
-    end
-    subgraph CFG["config · prompts · schemas"]
-      C["Agent 注册 / 术语 / 合同"]
-    end
-    UI --> API
-    API --> ENG
-    ENG --> PRO
-    ENG --> RET
-    ENG --> DB
-    ENG --> C
-    DB --> SEC
-    PRO --> NET
-    RET --> NET
-    DB --> D
-```
 
 ```text
 backend/      FastAPI、Provider 适配、编排、检索、术语和持久化
